@@ -42,8 +42,16 @@ namespace WORKTOGETHER.DATA.Repositories
                 .ToList();
         }
 
-        // FINDALL 
-       
+        // Afficher tous les commandes
+        public List<Commande> FindAllWithDetails()
+        {
+            return table
+                .Include(c => c.Client)
+                .Include(c => c.Offre)
+                .ToList();
 
+
+
+        }
     }
 }

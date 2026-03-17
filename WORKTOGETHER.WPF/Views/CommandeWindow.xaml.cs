@@ -11,17 +11,28 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WORKTOGETHER.DATA.Repositories;
 
 namespace WORKTOGETHER.WPF.Views
 {
     /// <summary>
     /// Logique d'interaction pour Commandes.xaml
     /// </summary>
-    public partial class Commandes : Window
+    public partial class CommandeWindow : Window
     {
-        public Commandes()
+        private readonly CommandeRepository _repository;
+
+        public CommandeWindow()
         {
             InitializeComponent();
+            _repository = new CommandeRepository();
+            ChargerCommandes();
         }
+
+        private void ChargerCommandes()
+        {
+            DgCommandes.ItemsSource = _repository.FindAll();
+        }
+
     }
 }

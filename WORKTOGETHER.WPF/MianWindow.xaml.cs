@@ -31,6 +31,7 @@ namespace WORKTOGETHER.WPF
 
         private void BtnCommandes_Click(object sender, RoutedEventArgs e)
         {
+            new CommandeWindow().Show();
         }
 
         private void BtnTickets_Click(object sender, RoutedEventArgs e)

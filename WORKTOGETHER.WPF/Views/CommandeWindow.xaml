@@ -1,4 +1,4 @@
-﻿<Window x:Class="WORKTOGETHER.WPF.Views.Commandes"
+﻿<Window x:Class="WORKTOGETHER.WPF.Views.CommandeWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Gestion des Commandes" Height="500" Width="800"
@@ -20,9 +20,10 @@
                   IsReadOnly="True"
                   AlternatingRowBackground="LightGray">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Numro commande" Binding="{Binding NumeroCommande}" Width="150"/>
-                <DataGridTextColumn Header="Date de commande" Binding="{Binding DateCommande}" Width="200"/>
-                <DataGridTextColumn Header="Motant total" Binding="{Binding MontantTotal}" Width="150"/>
+                <DataGridTextColumn Header="Numero commande" Binding="{Binding NumeroCommande}" Width="150"/>
+                <DataGridTextColumn Header="Nom d'offre" Binding="{Binding Offre.nomOffre}" Width="100"/>
+                <DataGridTextColumn Header="Nom du client" Binding="{Binding Client.Nom}" Width="200"/>
+                <DataGridTextColumn Header="Montant total" Binding="{Binding MontantTotal}" Width="150"/>
                 <DataGridTextColumn Header="Montant TVA" Binding="{Binding MontantTVA}" Width="150"/>
                 <DataGridTextColumn Header="Date debut" Binding="{Binding DateDebutService}" Width="150"/>
                 <DataGridTextColumn Header="Date Fin" Binding="{Binding DateFinService}" />

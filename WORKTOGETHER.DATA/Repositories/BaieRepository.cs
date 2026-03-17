@@ -10,6 +10,13 @@ namespace WORKTOGETHER.DATA.Repositories
 {
     public class BaieRepository : Repository<Baie>
     {
+        // Une methode pour recoupérer tous les bais 
+        //public List<Baie> GetAllBaies()
+        //{
+        //    return table
+        //        .Inlude(b => b.Unites) // Inclure les unités associées à chaque baie
+        //        .ToList();
+        //}
         /// <summary>
         /// Une methode pour recoupérer la cpapacite  d'un baie en fonction de son id
         /// </summary>
@@ -45,6 +52,8 @@ namespace WORKTOGETHER.DATA.Repositories
             context.SaveChanges();
 
         }
+
+        // 
 
     }
 }

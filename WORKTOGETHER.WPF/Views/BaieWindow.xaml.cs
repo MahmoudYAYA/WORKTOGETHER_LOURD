@@ -17,9 +17,9 @@ namespace WORKTOGETHER.WPF.Views
     /// <summary>
     /// Logique d'interaction pour Baie.xaml
     /// </summary>
-    public partial class Baie : Window
+    public partial class BaieWindow : Window
     {
-        public Baie()
+        public BaieWindow()
         {
             InitializeComponent();
         }
