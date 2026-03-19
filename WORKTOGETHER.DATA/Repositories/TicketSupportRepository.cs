@@ -27,5 +27,16 @@ namespace WORKTOGETHER.DATA.Repositories
                 .Where(t => t.ClientId == clientId)
                 .ToList();
         }
+
+        public List<TicketSupport> FindAllWithDetails()
+        {
+            return table
+                .Include(c => c.Client)
+                .ToList();
+
+
+
+        }
+    
     }
 }

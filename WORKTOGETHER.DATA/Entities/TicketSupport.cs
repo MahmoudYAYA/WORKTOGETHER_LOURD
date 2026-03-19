@@ -15,7 +15,11 @@ public partial class TicketSupport
 
     public int? Priorite { get; set; }
 
+
     public DateTime DateCreation { get; set; }
+
+    // C'est la date de fermeture que je consome dans le formulaires 
+    public string StatutLabel => DateFermeture == null ? " Ouvert" : " Fermé";
 
     public DateTime? DateFermeture { get; set; }
 

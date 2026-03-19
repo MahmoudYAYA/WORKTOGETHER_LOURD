@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -53,6 +54,12 @@ namespace WORKTOGETHER.DATA.Repositories
 
         }
 
+        public List<Baie> FindAllwithDetails()
+        {
+            return table
+                .Include(u => u.Unites)
+                .ToList();
+        }
         // 
 
     }
