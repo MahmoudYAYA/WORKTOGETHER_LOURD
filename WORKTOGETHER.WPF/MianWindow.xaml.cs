@@ -27,15 +27,17 @@ namespace WORKTOGETHER.WPF
 
         private void BtnBaies_Click(object sender, RoutedEventArgs e)
         {
+            new BaieWindow().ShowDialog();
         }
 
         private void BtnCommandes_Click(object sender, RoutedEventArgs e)
         {
-            new CommandeWindow().Show();
+            new CommandeWindow().ShowDialog();
         }
 
         private void BtnTickets_Click(object sender, RoutedEventArgs e)
         {
+            new TicketsWindow().ShowDialog();
         }
 
         private void BtnInterventions_Click(object sender, RoutedEventArgs e)

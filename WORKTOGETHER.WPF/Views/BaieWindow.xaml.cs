@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WORKTOGETHER.DATA.Repositories;
 
 namespace WORKTOGETHER.WPF.Views
 {
@@ -19,9 +20,18 @@ namespace WORKTOGETHER.WPF.Views
     /// </summary>
     public partial class BaieWindow : Window
     {
+        private readonly BaieRepository _repository;
         public BaieWindow()
         {
             InitializeComponent();
+            _repository = new BaieRepository();
+            ChargerBaies();
         }
+
+        private void ChargerBaies()
+        {
+            DgBaies.ItemsSource = _repository.FindAllwithDetails();
+        }
+
     }
 }

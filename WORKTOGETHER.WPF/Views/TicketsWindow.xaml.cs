@@ -13,26 +13,27 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WORKTOGETHER.DATA.Repositories;
 
+
 namespace WORKTOGETHER.WPF.Views
 {
     /// <summary>
-    /// Logique d'interaction pour Commandes.xaml
+    /// Logique d'interaction pour TicketsWindow.xaml
     /// </summary>
-    public partial class CommandeWindow : Window
+    public partial class TicketsWindow : Window
     {
-        private readonly CommandeRepository _repository;
+        private TicketSupportRepository _repository;
 
-        public CommandeWindow()
+        public TicketsWindow()
         {
+
             InitializeComponent();
-            _repository = new CommandeRepository();
-            ChargerCommandes();
+            _repository = new TicketSupportRepository();
+            ChargerTicketSupport();
         }
 
-        private void ChargerCommandes()
+        private void ChargerTicketSupport()
         {
-            DgCommandes.ItemsSource = _repository.FindAllWithDetails();
+            DgTickets.ItemsSource = _repository.FindAllWithDetails();
         }
-
     }
 }

@@ -20,13 +20,14 @@
                   IsReadOnly="True"
                   AlternatingRowBackground="LightGray">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Numero commande" Binding="{Binding NumeroCommande}" Width="150"/>
-                <DataGridTextColumn Header="Nom d'offre" Binding="{Binding Offre.nomOffre}" Width="100"/>
-                <DataGridTextColumn Header="Nom du client" Binding="{Binding Client.Nom}" Width="200"/>
-                <DataGridTextColumn Header="Montant total" Binding="{Binding MontantTotal}" Width="150"/>
-                <DataGridTextColumn Header="Montant TVA" Binding="{Binding MontantTVA}" Width="150"/>
-                <DataGridTextColumn Header="Date debut" Binding="{Binding DateDebutService}" Width="150"/>
-                <DataGridTextColumn Header="Date Fin" Binding="{Binding DateFinService}" />
+                <DataGridTextColumn Header="Numéro commande" Binding="{Binding NumeroCommande}" Width="150"/>
+                <DataGridTextColumn Header="Nom d'offre" Binding="{Binding Offre.NomOffre}" Width="150"/>
+                <DataGridTextColumn Header="Client" Binding="{Binding Client.Nom}" Width="150"/>
+                <DataGridTextColumn Header="Montant HT" Binding="{Binding MontantTotal}" Width="120"/>
+                <DataGridTextColumn Header="Montant TVA" Binding="{Binding MontantTva}" Width="120"/>
+                <DataGridTextColumn Header="Statut" Binding="{Binding StatutPaiement}" Width="120"/>
+                <DataGridTextColumn Header="Date début" Binding="{Binding DateDebutService, StringFormat=dd/MM/yyyy}" Width="120"/>
+                <DataGridTextColumn Header="Date fin" Binding="{Binding DateFinService, StringFormat=dd/MM/yyyy}" Width="120"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
