@@ -53,14 +53,17 @@ namespace WORKTOGETHER.DATA.Repositories
             context.SaveChanges();
 
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public List<Baie> FindAllwithDetails()
         {
             return table
                 .Include(u => u.Unites)
                 .ToList();
         }
-        // 
+        
 
     }
 }

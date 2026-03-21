@@ -27,5 +27,14 @@ namespace WORKTOGETHER.DATA.Repositories
                 .Where(i => i.UniteId == uniteId)
                 .ToList();
         }
+        public List<Intervention> FindAllWithDetails()
+        {
+            return table
+                .Include(i => i.Unite)
+                .ToList();
+
+
+
+        }
     }
 }

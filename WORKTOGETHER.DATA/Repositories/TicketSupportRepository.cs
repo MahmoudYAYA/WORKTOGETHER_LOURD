@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WORKTOGETHER.DATA.Entities;
 
+
 namespace WORKTOGETHER.DATA.Repositories
 {
     public class TicketSupportRepository : Repository<TicketSupport>
@@ -18,6 +19,7 @@ namespace WORKTOGETHER.DATA.Repositories
                 .Where(t => t.DateFermeture == null)
                 .ToList();
         }
+
 
         // Tickets d'un client
         public List<TicketSupport> FindByClient(int clientId)
