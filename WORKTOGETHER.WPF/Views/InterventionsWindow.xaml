@@ -1,31 +1,55 @@
 ﻿<Window x:Class="WORKTOGETHER.WPF.Views.InterventionsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Gestion des interventions" Height="500" Width="800"
+        Title="Gestion des Interventions" Height="500" Width="900"
         WindowStartupLocation="CenterScreen">
     <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <!-- Titre -->
+            <RowDefinition Height="Auto"/>
+            <!-- Bouton -->
             <RowDefinition Height="*"/>
+            <!-- Tableau -->
         </Grid.RowDefinitions>
 
         <!-- Titre -->
-        <TextBlock Grid.Row="0" Text="Liste des Interventions" 
-                   FontSize="20" FontWeight="Bold" Margin="0,0,0,15"/>
+        <TextBlock Grid.Row="0" Text="Liste des Interventions"
+                   FontSize="20" FontWeight="Bold" Margin="0,0,0,10"/>
+
+        <!-- Bouton Nouvelle intervention -->
+        <Button Grid.Row="1"
+                Content="➕ Nouvelle intervention"
+                HorizontalAlignment="Right"
+                Padding="12,6" Margin="0,0,0,10"
+                Background="#2C3E7A" Foreground="White"
+                Click="BtnNouvelle_Click"/>
 
         <!-- Tableau -->
-        <DataGrid Grid.Row="1" 
+        <DataGrid Grid.Row="2"
                   x:Name="DgInterventions"
                   AutoGenerateColumns="False"
                   IsReadOnly="True"
+                  CanUserAddRows="False"
                   AlternatingRowBackground="LightGray">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Titre" Binding="{Binding Titre}" Width="150"/>
-                <DataGridTextColumn Header="Type" Binding="{Binding TypeLabel}" Width="150"/>
-                <DataGridTextColumn Header="Statut" Binding="{Binding StatutLabel}" Width="150"/>
-                <DataGridTextColumn Header="Unité" Binding="{Binding Unite.NomUnite}" Width="150"/>
-                <DataGridTextColumn Header="Date débute" Binding="{Binding DateDebut, StringFormat=dd/MM/yyyy}" Width="120"/>
-                <DataGridTextColumn Header="Date fin" Binding="{Binding DateFin, StringFormat=dd/MM/yyyy}" Width="120"/>
+                <DataGridTextColumn Header="Type" Binding="{Binding TypeLabel}" Width="120"/>
+                <DataGridTextColumn Header="Statut" Binding="{Binding StatutLabel}" Width="120"/>
+                <DataGridTextColumn Header="Unité" Binding="{Binding Unite.NomUnite}" Width="120"/>
+                <DataGridTextColumn Header="Date début" Binding="{Binding DateDebut, StringFormat=dd/MM/yyyy}" Width="110"/>
+                <DataGridTextColumn Header="Date fin" Binding="{Binding DateFin, StringFormat=dd/MM/yyyy}" Width="110"/>
+                <DataGridTemplateColumn Header="Actions" Width="120">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="✅ Terminer"
+                                    Click="BtnTerminer_Click"
+                                    Tag="{Binding Id}"
+                                    Padding="8,4"
+                                    Margin="2"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

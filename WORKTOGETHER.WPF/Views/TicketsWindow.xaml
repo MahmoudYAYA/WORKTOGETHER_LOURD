@@ -1,7 +1,7 @@
 ﻿<Window x:Class="WORKTOGETHER.WPF.Views.TicketsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Gestion des Tickets" Height="500" Width="800"
+        Title="Gestion des Tickets" Height="500" Width="900"
         WindowStartupLocation="CenterScreen">
     <Grid Margin="20">
         <Grid.RowDefinitions>
@@ -9,26 +9,36 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Titre -->
         <TextBlock Grid.Row="0" Text="Liste des Tickets" 
                    FontSize="20" FontWeight="Bold" Margin="0,0,0,15"/>
 
-        <!-- Tableau -->
         <DataGrid Grid.Row="1" 
                   x:Name="DgTickets"
                   AutoGenerateColumns="False"
                   IsReadOnly="True"
+                  CanUserAddRows="False"
                   AlternatingRowBackground="LightGray">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Numéro Ticket" Binding="{Binding NumeroTicket}" Width="150"/>
+                <DataGridTextColumn Header="Numéro" Binding="{Binding NumeroTicket}" Width="120"/>
                 <DataGridTextColumn Header="Sujet" Binding="{Binding Sujet}" Width="150"/>
-                <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="150"/>
-                <DataGridTextColumn Header="Priorité" Binding="{Binding Priorite}" Width="120"/>
-                <DataGridTextColumn Header="Client" Binding="{Binding Client.Prenom}" Width="120"/>
-                <DataGridTextColumn Header="Nom" Binding="{Binding Client.Nom}" Width="120"/>
-                <DataGridTextColumn Header="Statut" Binding="{Binding StatutLabel}" Width="120"/>
-                <DataGridTextColumn Header="Date date de création" Binding="{Binding DateCreation, StringFormat=dd/MM/yyyy}" Width="120"/>
-                <DataGridTextColumn Header="Date de fermeture" Binding="{Binding DateFermeture, StringFormat=dd/MM/yyyy}" Width="120"/>
+                <DataGridTextColumn Header="Priorité" Binding="{Binding Priorite}" Width="80"/>
+                <DataGridTextColumn Header="Client" Binding="{Binding Client.Nom}" Width="120"/>
+                <DataGridTextColumn Header="Statut" Binding="{Binding StatutLabel}" Width="100" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Date création" Binding="{Binding DateCreation, StringFormat=dd/MM/yyyy}" Width="120"/>
+
+                <!-- Bouton Fermer -->
+                <DataGridTemplateColumn Header="Actions" Width="120">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Fermer"
+                                    Click="BtnFermer_Click"
+                                    Tag="{Binding Id}"
+                                
+                                    Margin="2"
+                                    />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
