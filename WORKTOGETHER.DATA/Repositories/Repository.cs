@@ -19,40 +19,41 @@ namespace WORKTOGETHER.DATA.Repositories
             table = context.Set<T>();
         }
 
-        // méthode pour créer une nouvelle entité
         public void Create(T entity)
         {
-            table.Add(entity);
-            context.SaveChanges();
+            using var ctx = new WorktogetherContext();
+            ctx.Set<T>().Add(entity);
+            ctx.SaveChanges();
         }
 
         public void Update(T entity)
         {
-            table.Update(entity);
-            context.SaveChanges();
+            using var ctx = new WorktogetherContext();
+            ctx.Set<T>().Update(entity);
+            ctx.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            var entity = table.Find(id);
-
+            using var ctx = new WorktogetherContext();
+            var entity = ctx.Set<T>().Find(id);
             if (entity != null)
             {
-                table.Remove(entity);
-                context.SaveChanges();
+                ctx.Set<T>().Remove(entity);
+                ctx.SaveChanges();
             }
         }
 
-        // méthode pour trouver une entité par son identifiant
         public T FindById(int id)
         {
-            return table.Find(id);
+            using var ctx = new WorktogetherContext();
+            return ctx.Set<T>().Find(id);
         }
 
-        // 
-        public List<T> FindAll() 
+        public List<T> FindAll()
         {
-            return table.ToList(); 
+            using var ctx = new WorktogetherContext();
+            return ctx.Set<T>().ToList();
         }
     }
 }
