@@ -42,7 +42,7 @@
                 <DataGridTemplateColumn Header="Actions" Width="120">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="✅ Terminer"
+                            <Button Content="Terminer"
                                     Click="BtnTerminer_Click"
                                     Tag="{Binding Id}"
                                     Padding="8,4"

@@ -24,9 +24,10 @@ namespace WORKTOGETHER.WPF.Views
             var btn = sender as Button;
             int ticketId = (int)btn.Tag;
 
-            var ticket = _repository.FindById(ticketId);
+            // ← Nouveau repository à chaque fois
+            var repo = new TicketSupportRepository();
+            var ticket = repo.FindById(ticketId);
 
-            // Vérifie que le ticket n'est pas déjà fermé
             if (ticket.DateFermeture != null)
             {
                 MessageBox.Show("Ce ticket est déjà fermé !", "Information",
@@ -34,15 +35,14 @@ namespace WORKTOGETHER.WPF.Views
                 return;
             }
 
-            // Ferme le ticket
             ticket.DateFermeture = DateTime.Now;
-            _repository.Update(ticket);
+            repo.Update(ticket);
 
-            // Recharge la liste
             ChargerTickets();
 
             MessageBox.Show("Ticket fermé avec succès !", "Succès",
                             MessageBoxButton.OK, MessageBoxImage.Information);
+            ChargerTickets();
         }
     }
 }

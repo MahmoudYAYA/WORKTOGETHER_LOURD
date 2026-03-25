@@ -3,22 +3,41 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Gestion des Utilisateurs" Height="500" Width="800"
         WindowStartupLocation="CenterScreen">
+
     <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <!-- Titre -->
+            <RowDefinition Height="Auto"/>
+            <!-- Bouton -->
             <RowDefinition Height="*"/>
+            <!-- DataGrid -->
         </Grid.RowDefinitions>
 
         <!-- Titre -->
-        <TextBlock Grid.Row="0" Text="Liste des Utilisateurs" 
-                   FontSize="20" FontWeight="Bold" Margin="0,0,0,15"/>
+        <TextBlock Grid.Row="0"
+                   Text="Liste des Utilisateurs"
+                   FontSize="20"
+                   FontWeight="Bold"
+                   Margin="0,0,0,15"/>
+
+        <!-- ✅ Bouton (BON ENDROIT) -->
+        <Button Grid.Row="1"
+                Content="➕ Nouvel utilisateur"
+                HorizontalAlignment="Right"
+                Padding="12,6"
+                Margin="0,0,0,10"
+                Background="#2C3E7A"
+                Foreground="White"
+                Click="BtnNouveau_Click"/>
 
         <!-- Tableau -->
-        <DataGrid Grid.Row="1" 
+        <DataGrid Grid.Row="2"
                   x:Name="DgUtilisateurs"
                   AutoGenerateColumns="False"
                   IsReadOnly="True"
                   AlternatingRowBackground="LightGray">
+
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Prénom" Binding="{Binding Prenom}" Width="150"/>
                 <DataGridTextColumn Header="Nom" Binding="{Binding Nom}" Width="200"/>
@@ -26,8 +45,8 @@
                 <DataGridTextColumn Header="Role" Binding="{Binding RoleLabel}" Width="150"/>
                 <DataGridTextColumn Header="Active" Binding="{Binding ActifLabel}" Width="150"/>
             </DataGrid.Columns>
+
         </DataGrid>
-        
+
     </Grid>
-    
 </Window>

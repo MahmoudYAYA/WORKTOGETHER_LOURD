@@ -25,6 +25,9 @@
                 <DataGridTextColumn Header="Client" Binding="{Binding Client.Nom}" Width="120"/>
                 <DataGridTextColumn Header="Statut" Binding="{Binding StatutLabel}" Width="100" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Date création" Binding="{Binding DateCreation, StringFormat=dd/MM/yyyy}" Width="120"/>
+                <DataGridTextColumn Header="Date fermeture" 
+                    Binding="{Binding DateFermeture, StringFormat=dd/MM/yyyy}" 
+                    Width="120"/>
 
                 <!-- Bouton Fermer -->
                 <DataGridTemplateColumn Header="Actions" Width="120">

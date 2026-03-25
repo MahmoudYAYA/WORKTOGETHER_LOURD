@@ -33,7 +33,14 @@ namespace WORKTOGETHER.WPF.Views
         {
             DgUtilisateurs.ItemsSource = _repository.FindAll();
         }
-
+        private void BtnNouveau_Click(object sender, RoutedEventArgs e)
+        {
+            var fenetre = new NouvelleUserWindow();
+            if (fenetre.ShowDialog() == true)
+            {
+                ChargerUsers();
+            }
+        }
 
     }
 

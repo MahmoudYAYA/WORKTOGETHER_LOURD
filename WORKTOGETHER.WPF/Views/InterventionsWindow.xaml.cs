@@ -25,9 +25,10 @@ namespace WORKTOGETHER.WPF.Views
             var btn = sender as Button;
             int interventionId = (int)btn.Tag;
 
-            var intervention = _repository.FindById(interventionId);
+            // ← Crée un nouveau repository à chaque fois
+            var repo = new InterventionRepository();
+            var intervention = repo.FindById(interventionId);
 
-            // Vérifie que l'intervention n'est pas déjà terminée
             if (intervention.Statut == "terminee")
             {
                 MessageBox.Show("Cette intervention est déjà terminée !", "Information",
@@ -35,12 +36,10 @@ namespace WORKTOGETHER.WPF.Views
                 return;
             }
 
-            // Termine l'intervention
             intervention.Statut = "terminee";
             intervention.DateFin = DateTime.Now;
-            _repository.Update(intervention);
+            repo.Update(intervention);
 
-            // Recharge la liste
             ChargerInterventions();
 
             MessageBox.Show("Intervention terminée avec succès !", "Succès",
