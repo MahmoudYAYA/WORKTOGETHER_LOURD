@@ -19,7 +19,7 @@ namespace WORKTOGETHER.WPF
 
         private void BtnUsers_Click(object sender, RoutedEventArgs e)
         {
-            new UserWindow().Show();
+            MainFrame.Navigate(new Users.UserPage());
         }
 
         private void BtnUnites_Click(object sender, RoutedEventArgs e)
@@ -39,9 +39,8 @@ namespace WORKTOGETHER.WPF
 
         private void BtnTickets_Click(object sender, RoutedEventArgs e)
         {
-            new TicketsWindow().ShowDialog();
+            MainFrame.Navigate(new Tickets.TicketPage());
         }
-
         private void BtnInterventions_Click(object sender, RoutedEventArgs e)
         {
             new InterventionsWindow().ShowDialog();

@@ -23,4 +23,13 @@
     <ProjectReference Include="..\WORKTOGETHER.DATA\WORKTOGETHER.DATA.csproj" />
   </ItemGroup>
 
+<<<<<<< Updated upstream
+=======
+  <ItemGroup>
+    <Folder Include="Baies\" />
+    <Folder Include="_ui\" />
+    <Folder Include="Unites\" />
+  </ItemGroup>
+
+>>>>>>> Stashed changes
 </Project>
