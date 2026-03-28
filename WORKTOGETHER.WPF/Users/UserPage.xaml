@@ -11,9 +11,9 @@
 
         <!-- En-tête -->
         <Border Grid.Row="0" Background="#2C3E7A" Padding="15,10">
-            <TextBlock Text="UTILISATEURS" Foreground="White"
-                       FontSize="14" FontWeight="Bold" LetterSpacing="2"/>
-        </Border>
+			<TextBlock Text="BAIES" FontSize="14" FontWeight="Bold"/>
+
+		</Border>
 
         <!-- Contenu -->
         <Grid Grid.Row="1">

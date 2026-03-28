@@ -36,9 +36,18 @@ namespace WORKTOGETHER.DATA.Repositories
                 .Include(c => c.Client)
                 .ToList();
 
-
-
         }
-    
+
+        public void Fermer(int id)
+        {
+            using var ctx = new WorktogetherContext();
+            var ticket = ctx.TicketSupports.Find(id);
+            if (ticket != null)
+            {
+                ticket.DateFermeture = DateTime.Now;
+                ctx.SaveChanges();
+            }
+        }
+
     }
 }

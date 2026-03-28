@@ -32,9 +32,18 @@ namespace WORKTOGETHER.DATA.Repositories
             return table
                 .Include(i => i.Unite)
                 .ToList();
+        }
 
-
-
+        public void Terminer(int id)
+        {
+            using var ctx = new WorktogetherContext();
+            var intervention = ctx.Interventions.Find(id);
+            if (intervention != null)
+            {
+                intervention.Statut = "terminee";
+                intervention.DateFin = DateTime.Now;
+                ctx.SaveChanges();
+            }
         }
     }
 }
