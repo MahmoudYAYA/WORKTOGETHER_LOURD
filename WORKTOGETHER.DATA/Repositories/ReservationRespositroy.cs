@@ -23,5 +23,15 @@ namespace WORKTOGETHER.DATA.Repositories
                 .Where(r => r.ClientId == clientId)
                 .ToList();
         }
+
+        // une methode pour charger tous les reservation
+        public List<Reservation> FindAllWithDetails()
+        {
+            using var ctx = new WorktogetherContext();
+            return ctx.Reservations
+                .Include(r => r.Client)
+                .Include(r => r.Offre)
+                .ToList();
+        }
     }
 }

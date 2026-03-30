@@ -2,11 +2,14 @@
 using WORKTOGETHER.DATA.Entities;
 using WORKTOGETHER.WPF.Baies;
 using WORKTOGETHER.WPF.Commandes;
+using WORKTOGETHER.WPF.Dashboard;
 using WORKTOGETHER.WPF.Interventions;
+using WORKTOGETHER.WPF.Offres;
+using WORKTOGETHER.WPF.Reservations;
 using WORKTOGETHER.WPF.Tickets;
 using WORKTOGETHER.WPF.Users;
-using WORKTOGETHER.WPF.Dashboard;
-using WORKTOGETHER.WPF.Offres;
+using WORKTOGETHER.WPF.Reservations;
+
 
 namespace WORKTOGETHER.WPF
 {
@@ -61,6 +64,12 @@ namespace WORKTOGETHER.WPF
             // UnitePage à faire
         }
 
+        // une button pour les reservation 
+
+        private void BtnReservations_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new ReservationPage());
+        }
         private void BtnDeconnexion_Click(object sender, RoutedEventArgs e)
         {
             // LoginWindow est dans le namespace principal
@@ -68,5 +77,7 @@ namespace WORKTOGETHER.WPF
             login.Show();
             this.Close();
         }
+
+
     }
 }
