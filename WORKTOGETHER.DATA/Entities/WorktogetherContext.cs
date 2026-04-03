@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Pomelo.EntityFrameworkCore.MySql.Scaffolding.Internal;
 
 namespace WORKTOGETHER.DATA.Entities;
 
@@ -37,15 +38,21 @@ public partial class WorktogetherContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseMySQL("Server=localhost;Database=worktogether;user=root;");
+        => optionsBuilder.UseMySql("server=localhost;database=worktogether;uid=root;port=3306", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.3.0-mysql"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder
+            .UseCollation("utf8mb4_0900_ai_ci")
+            .HasCharSet("utf8mb4");
+
         modelBuilder.Entity<Baie>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity.ToTable("baie");
+            entity
+                .ToTable("baie")
+                .UseCollation("utf8mb4_unicode_ci");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CapaciteTotale).HasColumnName("capacite_totale");
@@ -58,33 +65,34 @@ public partial class WorktogetherContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity.ToTable("commande");
+            entity
+                .ToTable("commande")
+                .UseCollation("utf8mb4_unicode_ci");
 
             entity.HasIndex(e => e.ClientId, "IDX_6EEAA67D19EB6921");
 
             entity.HasIndex(e => e.OffreId, "IDX_6EEAA67D4CC8505A");
+
+            entity.HasIndex(e => e.ReservationId, "IDX_6EEAA67DB83297E7");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.ClientId).HasColumnName("client_id");
             entity.Property(e => e.DateCommande)
                 .HasColumnType("datetime")
                 .HasColumnName("date_commande");
-            entity.Property(e => e.DateDebutService)
-                .HasColumnType("date")
-                .HasColumnName("date_debut_service");
-            entity.Property(e => e.DateFinService)
-                .HasColumnType("date")
-                .HasColumnName("date_fin_service");
+            entity.Property(e => e.DateDebutService).HasColumnName("date_debut_service");
+            entity.Property(e => e.DateFinService).HasColumnName("date_fin_service");
             entity.Property(e => e.MontantTotal)
-                .HasPrecision(10)
+                .HasPrecision(10, 2)
                 .HasColumnName("montant_total");
             entity.Property(e => e.MontantTva)
-                .HasPrecision(10)
+                .HasPrecision(10, 2)
                 .HasColumnName("montant_tva");
             entity.Property(e => e.NumeroCommande)
                 .HasMaxLength(100)
                 .HasColumnName("numero_commande");
             entity.Property(e => e.OffreId).HasColumnName("offre_id");
+            entity.Property(e => e.ReservationId).HasColumnName("reservation_id");
             entity.Property(e => e.StatutPaiement)
                 .HasMaxLength(255)
                 .HasColumnName("statut_paiement");
@@ -108,6 +116,10 @@ public partial class WorktogetherContext : DbContext
             entity.HasOne(d => d.Offre).WithMany(p => p.Commandes)
                 .HasForeignKey(d => d.OffreId)
                 .HasConstraintName("FK_6EEAA67D4CC8505A");
+
+            entity.HasOne(d => d.Reservation).WithMany(p => p.Commandes)
+                .HasForeignKey(d => d.ReservationId)
+                .HasConstraintName("FK_6EEAA67DB83297E7");
         });
 
         modelBuilder.Entity<DoctrineMigrationVersion>(entity =>
@@ -129,7 +141,9 @@ public partial class WorktogetherContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity.ToTable("intervention");
+            entity
+                .ToTable("intervention")
+                .UseCollation("utf8mb4_unicode_ci");
 
             entity.HasIndex(e => e.UniteId, "IDX_D11814ABEC4A74AB");
 
@@ -161,7 +175,9 @@ public partial class WorktogetherContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity.ToTable("messenger_messages");
+            entity
+                .ToTable("messenger_messages")
+                .UseCollation("utf8mb4_unicode_ci");
 
             entity.HasIndex(e => new { e.QueueName, e.AvailableAt, e.DeliveredAt, e.Id }, "IDX_75EA56E0FB7336F0E3BD61CE16BA31DBBF396750");
 
@@ -186,7 +202,9 @@ public partial class WorktogetherContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity.ToTable("offre");
+            entity
+                .ToTable("offre")
+                .UseCollation("utf8mb4_unicode_ci");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Description)
@@ -197,10 +215,10 @@ public partial class WorktogetherContext : DbContext
                 .HasColumnName("nom_offre");
             entity.Property(e => e.NombreUnites).HasColumnName("nombre_unites");
             entity.Property(e => e.PrixAnnuelle)
-                .HasPrecision(10)
+                .HasPrecision(10, 2)
                 .HasColumnName("prix_annuelle");
             entity.Property(e => e.PrixMensuel)
-                .HasPrecision(10)
+                .HasPrecision(10, 2)
                 .HasColumnName("prix_mensuel");
             entity.Property(e => e.ReductionAnnuelle).HasColumnName("reduction_annuelle");
         });
@@ -209,7 +227,9 @@ public partial class WorktogetherContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity.ToTable("reservation");
+            entity
+                .ToTable("reservation")
+                .UseCollation("utf8mb4_unicode_ci");
 
             entity.HasIndex(e => e.ClientId, "IDX_42C8495519EB6921");
 
@@ -217,12 +237,8 @@ public partial class WorktogetherContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.ClientId).HasColumnName("client_id");
-            entity.Property(e => e.DateDebut)
-                .HasColumnType("date")
-                .HasColumnName("date_debut");
-            entity.Property(e => e.DateFin)
-                .HasColumnType("date")
-                .HasColumnName("date_fin");
+            entity.Property(e => e.DateDebut).HasColumnName("date_debut");
+            entity.Property(e => e.DateFin).HasColumnName("date_fin");
             entity.Property(e => e.OffreId).HasColumnName("offre_id");
             entity.Property(e => e.PrixTotal).HasColumnName("prix_total");
 
@@ -240,7 +256,9 @@ public partial class WorktogetherContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity.ToTable("ticket_support");
+            entity
+                .ToTable("ticket_support")
+                .UseCollation("utf8mb4_unicode_ci");
 
             entity.HasIndex(e => e.ClientId, "IDX_8CC8B2F719EB6921");
 
@@ -272,7 +290,9 @@ public partial class WorktogetherContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity.ToTable("unite");
+            entity
+                .ToTable("unite")
+                .UseCollation("utf8mb4_unicode_ci");
 
             entity.HasIndex(e => e.BaieId, "IDX_1D64C11843375062");
 
@@ -308,7 +328,9 @@ public partial class WorktogetherContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity.ToTable("user");
+            entity
+                .ToTable("user")
+                .UseCollation("utf8mb4_unicode_ci");
 
             entity.HasIndex(e => e.Email, "UNIQ_IDENTIFIER_EMAIL").IsUnique();
 
@@ -320,9 +342,6 @@ public partial class WorktogetherContext : DbContext
             entity.Property(e => e.DateCreation)
                 .HasColumnType("datetime")
                 .HasColumnName("date_creation");
-            //entity.Property(e => e.DateNaissance)
-                //.HasColumnType("datetime")
-                //.HasColumnName("date_naissance");
             entity.Property(e => e.Email)
                 .HasMaxLength(180)
                 .HasColumnName("email");
@@ -336,9 +355,6 @@ public partial class WorktogetherContext : DbContext
             entity.Property(e => e.Pays)
                 .HasMaxLength(255)
                 .HasColumnName("pays");
-            //entity.Property(e => e.Photo)
-            //    .HasMaxLength(255)
-            //    .HasColumnName("photo");
             entity.Property(e => e.Prenom)
                 .HasMaxLength(200)
                 .HasColumnName("prenom");

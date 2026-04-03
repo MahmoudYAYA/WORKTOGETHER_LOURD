@@ -172,6 +172,20 @@
 
                         <!-- Séparateur -->
                         <Separator Margin="0,10,0,10"/>
+                        <TextBlock Text="🖥️ Unités réservées" FontWeight="Bold" Margin="0,0,0,8"/>
+
+                        <DataGrid x:Name="DgUnites"
+          AutoGenerateColumns="False"
+          IsReadOnly="True"
+          CanUserAddRows="False"
+          MaxHeight="200"
+          AlternatingRowBackground="#F5F5F5">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="NUMÉRO" Binding="{Binding NumeroUnite}" Width="*"/>
+                                <DataGridTextColumn Header="NOM" Binding="{Binding NomUnite}" Width="*"/>
+                                <DataGridTextColumn Header="ÉTAT" Binding="{Binding Etat}" Width="80"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
 
                         <!-- Carte bancaire si payé -->
                         <Grid Margin="0,0,0,12">

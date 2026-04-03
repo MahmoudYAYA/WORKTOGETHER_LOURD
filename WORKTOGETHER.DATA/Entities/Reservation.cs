@@ -7,9 +7,9 @@ public partial class Reservation
 {
     public int Id { get; set; }
 
-    public DateTime DateDebut { get; set; }
+    public DateOnly DateDebut { get; set; }
 
-    public DateTime DateFin { get; set; }
+    public DateOnly DateFin { get; set; }
 
     public double PrixTotal { get; set; }
 
@@ -18,6 +18,8 @@ public partial class Reservation
     public int OffreId { get; set; }
 
     public virtual User? Client { get; set; }
+
+    public virtual ICollection<Commande> Commandes { get; set; } = new List<Commande>();
 
     public virtual Offre Offre { get; set; } = null!;
 

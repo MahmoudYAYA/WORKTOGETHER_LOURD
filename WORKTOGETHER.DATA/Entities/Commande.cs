@@ -15,9 +15,9 @@ public partial class Commande
 
     public decimal MontantTva { get; set; }
 
-    public DateTime DateDebutService { get; set; }
+    public DateOnly DateDebutService { get; set; }
 
-    public DateTime DateFinService { get; set; }
+    public DateOnly DateFinService { get; set; }
 
     public string? StripePaymentId { get; set; }
 
@@ -33,7 +33,11 @@ public partial class Commande
 
     public int? OffreId { get; set; }
 
+    public int? ReservationId { get; set; }
+
     public virtual User? Client { get; set; }
 
     public virtual Offre? Offre { get; set; }
+
+    public virtual Reservation? Reservation { get; set; }
 }

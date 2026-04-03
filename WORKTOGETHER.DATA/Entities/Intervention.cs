@@ -8,7 +8,7 @@ public partial class Intervention
     public int Id { get; set; }
 
     public string Titre { get; set; } = null!;
-    public string TypeLabel => Type == 1 ? "Maintenance" : Type == 2 ? "Remplacement" : "Autre";
+
     public int Type { get; set; }
 
     public string? Description { get; set; }
@@ -17,12 +17,9 @@ public partial class Intervention
 
     public DateTime? DateFin { get; set; }
 
-    public string StatutLabel => Statut == "en_cours" ? "🔧 En cours" : "✅ Terminée";
     public string Statut { get; set; } = null!;
 
     public int? UniteId { get; set; }
 
     public virtual Unite? Unite { get; set; }
-
-    
 }

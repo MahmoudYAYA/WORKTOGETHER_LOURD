@@ -74,7 +74,6 @@ namespace WORKTOGETHER.WPF.Commandes
         // ── Affiche le détail de la commande sélectionnée ──
         private void AfficherDetail(Commande commande)
         {
-            // Infos principales
             TxtNumero.Text = commande.NumeroCommande;
             TxtClient.Text = commande.Client?.Prenom + " " + commande.Client?.Nom;
             TxtOffre.Text = commande.Offre?.NomOffre;
@@ -85,11 +84,16 @@ namespace WORKTOGETHER.WPF.Commandes
             TxtDateDebut.Text = commande.DateDebutService.ToString("dd/MM/yyyy");
             TxtDateFin.Text = commande.DateFinService.ToString("dd/MM/yyyy");
 
-            // Carte bancaire si disponible
             if (commande.StripeCardLast4 != null)
                 TxtCarte.Text = commande.StripeCardBrand + " **** " + commande.StripeCardLast4;
             else
                 TxtCarte.Text = "Non renseignée";
+
+            // ← Affiche les unités de la réservation
+            if (commande.Reservation != null)
+                DgUnites.ItemsSource = commande.Reservation.Unites;
+            else
+                DgUnites.ItemsSource = null;
         }
 
         // ── Vide le panneau de détail ──

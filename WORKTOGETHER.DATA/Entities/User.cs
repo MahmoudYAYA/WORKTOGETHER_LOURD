@@ -33,29 +33,9 @@ public partial class User
 
     public string? Pays { get; set; }
 
-    //public DateTime? DateNaissance { get; set; }
-
-    //public string? Photo { get; set; }
-
     public virtual ICollection<Commande> Commandes { get; set; } = new List<Commande>();
 
     public virtual ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
 
     public virtual ICollection<TicketSupport> TicketSupports { get; set; } = new List<TicketSupport>();
-
-    // inactif ou pas 
-    public string ActifLabel => Actif == 1 ? "✅ Actif" : "❌ Inactif";
-
-    // Methode pour afficher les roles 
-    public string RoleLabel
-    {
-        get
-        {
-            if (Roles.Contains("ROLE_ADMIN")) return "Admin";
-            if (Roles.Contains("ROLE_COMPTABLE")) return "Comptable";
-            if (Roles.Contains("ROLE_CLIENT")) return "Cleint";
-            return "Inconnu";
-        }
-
-    }
 }
