@@ -73,7 +73,7 @@ public partial class WorktogetherContext : DbContext
 
             entity.HasIndex(e => e.OffreId, "IDX_6EEAA67D4CC8505A");
 
-            entity.HasIndex(e => e.ReservationId, "IDX_6EEAA67DB83297E7");
+            entity.HasIndex(e => e.ReservationId, "UNIQ_6EEAA67DB83297E7").IsUnique();
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.ClientId).HasColumnName("client_id");
@@ -117,8 +117,8 @@ public partial class WorktogetherContext : DbContext
                 .HasForeignKey(d => d.OffreId)
                 .HasConstraintName("FK_6EEAA67D4CC8505A");
 
-            entity.HasOne(d => d.Reservation).WithMany(p => p.Commandes)
-                .HasForeignKey(d => d.ReservationId)
+            entity.HasOne(d => d.Reservation).WithOne(p => p.Commande)
+                .HasForeignKey<Commande>(d => d.ReservationId)
                 .HasConstraintName("FK_6EEAA67DB83297E7");
         });
 

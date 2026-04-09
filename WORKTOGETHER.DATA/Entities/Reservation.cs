@@ -19,7 +19,7 @@ public partial class Reservation
 
     public virtual User? Client { get; set; }
 
-    public virtual ICollection<Commande> Commandes { get; set; } = new List<Commande>();
+    public virtual Commande? Commande { get; set; }
 
     public virtual Offre Offre { get; set; } = null!;
 
