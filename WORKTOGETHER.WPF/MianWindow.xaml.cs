@@ -7,8 +7,10 @@ using WORKTOGETHER.WPF.Interventions;
 using WORKTOGETHER.WPF.Offres;
 using WORKTOGETHER.WPF.Reservations;
 using WORKTOGETHER.WPF.Tickets;
-using WORKTOGETHER.WPF.Users;
 using WORKTOGETHER.WPF.Unites; 
+using WORKTOGETHER.WPF.Users;
+using WORKTOGETHER.WPF.Rapports;
+
 
 namespace WORKTOGETHER.WPF
 {
@@ -29,6 +31,10 @@ namespace WORKTOGETHER.WPF
             MainFrame.Navigate(new DashboardPage());
         }
 
+        private void BtnRapports_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new RapportPage());
+        }
         private void BtnUsers_Click(object sender, RoutedEventArgs e)
         {
             MainFrame.Navigate(new UserPage());

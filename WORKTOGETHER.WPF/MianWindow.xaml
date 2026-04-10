@@ -36,8 +36,8 @@
                        HorizontalAlignment="Center"/>
 
             <Separator Background="#333"/>
-
             <Button Content="🏠  Dashboard" Style="{StaticResource MenuButton}" Click="BtnDashboard_Click"/>
+            <Button Content="📊  Rapports" Style="{StaticResource MenuButton}" Click="BtnRapports_Click"/>
             <Button Content="👥  Utilisateurs" Style="{StaticResource MenuButton}" Click="BtnUsers_Click"/>
             <Button Content="🖥️  Unités" Style="{StaticResource MenuButton}" Click="BtnUnites_Click"/>
             <Button Content="📦  Baies" Style="{StaticResource MenuButton}" Click="BtnBaies_Click"/>
