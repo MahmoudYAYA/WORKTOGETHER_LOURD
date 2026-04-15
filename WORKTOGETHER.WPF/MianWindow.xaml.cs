@@ -7,8 +7,9 @@ using WORKTOGETHER.WPF.Interventions;
 using WORKTOGETHER.WPF.Offres;
 using WORKTOGETHER.WPF.Reservations;
 using WORKTOGETHER.WPF.Tickets;
-using WORKTOGETHER.WPF.Users;
 using WORKTOGETHER.WPF.Unites; 
+using WORKTOGETHER.WPF.Users;
+using WORKTOGETHER.WPF.Rapports;
 
 namespace WORKTOGETHER.WPF
 {
@@ -21,14 +22,32 @@ namespace WORKTOGETHER.WPF
             InitializeComponent();
             _currentUser = user;
             TxtUsername.Text = user.Prenom + " " + user.Nom;
+
+            // ← Cache les menus admin si comptable
+            if (user.Roles.Contains("ROLE_COMPTABLE"))
+            {
+                BtnUsers.Visibility = Visibility.Collapsed;
+                BtnBaies.Visibility = Visibility.Collapsed;
+                BtnInterventions.Visibility = Visibility.Collapsed;
+                BtnOffres.Visibility = Visibility.Collapsed;
+                BtnUnites.Visibility = Visibility.Collapsed;
+            }
+
             MainFrame.Navigate(new DashboardPage());
         }
-
         private void BtnDashboard_Click(object sender, RoutedEventArgs e)
         {
             MainFrame.Navigate(new DashboardPage());
         }
 
+        private void BtnRapports_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new RapportPage());
+        }
+        private void BtnOccupation_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new OccupationPage());
+        }
         private void BtnUsers_Click(object sender, RoutedEventArgs e)
         {
             MainFrame.Navigate(new UserPage());

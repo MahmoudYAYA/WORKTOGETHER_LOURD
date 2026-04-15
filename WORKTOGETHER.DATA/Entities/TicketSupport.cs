@@ -19,6 +19,7 @@ public partial class TicketSupport
 
     public DateTime? DateFermeture { get; set; }
 
+    public string StatutLabel => DateFermeture == null ? "🔴 Ouvert" : "✅ Fermé";
     public int? ClientId { get; set; }
 
     public virtual User? Client { get; set; }

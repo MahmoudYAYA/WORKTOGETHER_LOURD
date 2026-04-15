@@ -81,6 +81,9 @@ public partial class WorktogetherContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("date_commande");
             entity.Property(e => e.DateDebutService).HasColumnName("date_debut_service");
+            entity.Property(e => e.DateFinRetractation)
+                .HasColumnType("datetime")
+                .HasColumnName("date_fin_retractation");
             entity.Property(e => e.DateFinService).HasColumnName("date_fin_service");
             entity.Property(e => e.MontantTotal)
                 .HasPrecision(10, 2)
@@ -300,9 +303,15 @@ public partial class WorktogetherContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.BaieId).HasColumnName("baie_id");
+            entity.Property(e => e.Couleur)
+                .HasMaxLength(7)
+                .HasColumnName("couleur");
             entity.Property(e => e.Etat)
                 .HasMaxLength(255)
                 .HasColumnName("etat");
+            entity.Property(e => e.NomPersonnalise)
+                .HasMaxLength(255)
+                .HasColumnName("nom_personnalise");
             entity.Property(e => e.NomUnite)
                 .HasMaxLength(255)
                 .HasColumnName("nom_unite");
@@ -313,6 +322,9 @@ public partial class WorktogetherContext : DbContext
             entity.Property(e => e.Statut)
                 .HasMaxLength(255)
                 .HasColumnName("statut");
+            entity.Property(e => e.TypeUnite)
+                .HasMaxLength(50)
+                .HasColumnName("type_unite");
 
             entity.HasOne(d => d.Baie).WithMany(p => p.Unites)
                 .HasForeignKey(d => d.BaieId)

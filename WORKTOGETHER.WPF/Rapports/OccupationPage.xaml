@@ -1,0 +1,127 @@
+﻿<Page x:Class="WORKTOGETHER.WPF.Rapports.OccupationPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+      Title="Occupation des baies">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- En-tête -->
+            <RowDefinition Height="Auto"/>
+            <!-- Stats rapides -->
+            <RowDefinition Height="*"/>
+            <!-- Graphique -->
+        </Grid.RowDefinitions>
+
+        <!-- En-tête -->
+        <Border Grid.Row="0" Background="#2C3E7A" Padding="15,10">
+            <TextBlock Text="OCCUPATION DES BAIES" Foreground="White"
+                       FontSize="14" FontWeight="Bold"/>
+        </Border>
+
+        <!-- Stats rapides -->
+        <Grid Grid.Row="1" Margin="15,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Total baies -->
+            <Border Grid.Column="0" Background="#2C3E7A" CornerRadius="8"
+                    Margin="0,0,8,0" Padding="15">
+                <StackPanel>
+                    <TextBlock Text=" Total baies" Foreground="White" FontSize="12"/>
+                    <TextBlock x:Name="TxtTotalBaies" Text="0" Foreground="White"
+                               FontSize="28" FontWeight="Bold"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Total unités -->
+            <Border Grid.Column="1" Background="#1A5276" CornerRadius="8"
+                    Margin="4,0" Padding="15">
+                <StackPanel>
+                    <TextBlock Text=" Total unités" Foreground="White" FontSize="12"/>
+                    <TextBlock x:Name="TxtTotalUnites" Text="0" Foreground="White"
+                               FontSize="28" FontWeight="Bold"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Unités occupées -->
+            <Border Grid.Column="2" Background="#922B21" CornerRadius="8"
+                    Margin="4,0" Padding="15">
+                <StackPanel>
+                    <TextBlock Text=" Occupées" Foreground="White" FontSize="12"/>
+                    <TextBlock x:Name="TxtOccupees" Text="0" Foreground="White"
+                               FontSize="28" FontWeight="Bold"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Taux occupation -->
+            <Border Grid.Column="3" Background="#1E8449" CornerRadius="8"
+                    Margin="8,0,0,0" Padding="15">
+                <StackPanel>
+                    <TextBlock Text="Taux occupation" Foreground="White" FontSize="12"/>
+                    <TextBlock x:Name="TxtTaux" Text="0%" Foreground="White"
+                               FontSize="28" FontWeight="Bold"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <!-- Graphique -->
+        <Grid Grid.Row="2" Margin="15,0,15,15">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Graphique en barres par baie -->
+            <Grid Grid.Column="0" Margin="0,0,8,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="Occupation par baie"
+                           FontSize="14" FontWeight="Bold" Margin="0,0,0,8"/>
+                <lvc:CartesianChart Grid.Row="1" x:Name="ChartBaies"
+                                    LegendLocation="Bottom">
+                    <lvc:CartesianChart.Series>
+                        <lvc:StackedColumnSeries x:Name="SeriesOccupees"
+                            Title="Occupées" Fill="#E74C3C"/>
+                        <lvc:StackedColumnSeries x:Name="SeriesDisponibles"
+                            Title="Disponibles" Fill="#2ECC71"/>
+                    </lvc:CartesianChart.Series>
+                    <lvc:CartesianChart.AxisX>
+                        <lvc:Axis x:Name="AxisBaies" Title="Baies"/>
+                    </lvc:CartesianChart.AxisX>
+                    <lvc:CartesianChart.AxisY>
+                        <lvc:Axis Title="Unités" MinValue="0"/>
+                    </lvc:CartesianChart.AxisY>
+                </lvc:CartesianChart>
+            </Grid>
+
+            <!-- Graphique en camembert global -->
+            <Grid Grid.Column="1" Margin="8,0,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="Répartition globale"
+                           FontSize="14" FontWeight="Bold" Margin="0,0,0,8"/>
+                <lvc:PieChart Grid.Row="1" x:Name="ChartGlobal"
+                              LegendLocation="Bottom" InnerRadius="60">
+                    <lvc:PieChart.Series>
+                        <lvc:PieSeries x:Name="PieOccupees"
+                            Title="Occupées" Fill="#E74C3C"
+                            DataLabels="True"/>
+                        <lvc:PieSeries x:Name="PieDisponibles"
+                            Title="Disponibles" Fill="#2ECC71"
+                            DataLabels="True"/>
+                    </lvc:PieChart.Series>
+                </lvc:PieChart>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

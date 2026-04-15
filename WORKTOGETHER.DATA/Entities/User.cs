@@ -33,6 +33,8 @@ public partial class User
 
     public string? Pays { get; set; }
 
+    public string RoleLabel => Roles.Contains("ROLE_ADMIN") ? "Admin" : Roles.Contains("ROLE_COMPTABLE") ? "Comptable" : "Client";
+    public string ActifLabel => Actif == 1 ? "✅ Actif" : "❌ Inactif";
     public virtual ICollection<Commande> Commandes { get; set; } = new List<Commande>();
 
     public virtual ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();

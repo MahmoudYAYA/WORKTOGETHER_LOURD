@@ -118,9 +118,9 @@
                         <!-- Modifier l'état -->
                         <TextBlock Text="Modifier l'état :" FontWeight="Bold" Margin="0,0,0,8"/>
                         <ComboBox x:Name="CmbEtat" Padding="6,4" Margin="0,0,0,10">
-                            <ComboBoxItem Content="✅ OK"          Tag="OK"/>
-                            <ComboBoxItem Content="⚠️ Incident"   Tag="incident"/>
-                            <ComboBoxItem Content="🔧 Maintenance" Tag="maintenance"/>
+                            <ComboBoxItem Content=" OK"          Tag="OK"/>
+                            <ComboBoxItem Content="Incident"   Tag="incident"/>
+                            <ComboBoxItem Content=" Maintenance" Tag="maintenance"/>
                         </ComboBox>
 
                         <!-- Message erreur -->
@@ -129,7 +129,7 @@
                     </StackPanel>
 
                     <!-- Bouton Enregistrer -->
-                    <Button Grid.Row="2" Content="💾 ENREGISTRER L'ÉTAT"
+                    <Button Grid.Row="2" Content=" ENREGISTRER L'ÉTAT"
                             Padding="12,8" Background="#2C3E7A"
                             Foreground="White" BorderThickness="0"
                             Click="BtnEnregistrer_Click"/>

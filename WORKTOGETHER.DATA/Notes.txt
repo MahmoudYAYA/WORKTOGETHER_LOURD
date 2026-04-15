@@ -1,0 +1,16 @@
+﻿remets ces propriétés helper :
+Baie.cs
+csharppublic int NbUnitesOccupees => Unites.Count(u => u.Statut == "occupe");
+public int NbUnitesDisponibles => Unites.Count(u => u.Statut == "disponible");
+User.cs
+csharppublic string RoleLabel => Roles.Contains("ROLE_ADMIN") ? "Admin" : Roles.Contains("ROLE_COMPTABLE") ? "Comptable" : "Client";
+public string ActifLabel => Actif == 1 ? " Actif" : " Inactif";
+TicketSupport.cs
+csharppublic string StatutLabel => DateFermeture == null ? " Ouvert" : " Fermé";
+Intervention.cs
+csharppublic string TypeLabel => Type == 1 ? "Maintenance" : Type == 2 ? "Remplacement" : "Autre";
+public string StatutLabel => Statut == "en_cours" ? " En cours" : " Terminée";
+
+
+Scaffold après chaque mise à jour 
+Scaffold-DbContext "Server=localhost;Database=worktogether;Uid=root;Pwd=;Port=3306;" Pomelo.EntityFrameworkCore.MySql -OutputDir Entities -Force -Project WORKTOGETHER.DATA -StartupProject WORKTOGETHER.DATA 

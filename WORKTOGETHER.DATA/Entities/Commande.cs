@@ -35,6 +35,8 @@ public partial class Commande
 
     public int? ReservationId { get; set; }
 
+    public DateTime? DateFinRetractation { get; set; }
+
     public virtual User? Client { get; set; }
 
     public virtual Offre? Offre { get; set; }

@@ -19,6 +19,12 @@ public partial class Unite
 
     public int? ReservationId { get; set; }
 
+    public string? NomPersonnalise { get; set; }
+
+    public string? TypeUnite { get; set; }
+
+    public string? Couleur { get; set; }
+
     public virtual Baie Baie { get; set; } = null!;
 
     public virtual ICollection<Intervention> Interventions { get; set; } = new List<Intervention>();

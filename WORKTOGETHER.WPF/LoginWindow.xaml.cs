@@ -24,9 +24,9 @@ namespace WORKTOGETHER.WPF
             }
 
             // Vérifie que c'est bien un admin
-            if (!user.Roles.Contains("ROLE_ADMIN"))
+            if (!user.Roles.Contains("ROLE_ADMIN") && !user.Roles.Contains("ROLE_COMPTABLE"))
             {
-                TxtErreur.Text = "Accès refusé ! Seuls les administrateurs peuvent se connecter.";
+                TxtErreur.Text = "Accès refusé ! Seuls les administrateurs et comptables peuvent se connecter.";
                 TxtErreur.Visibility = Visibility.Visible;
                 return;
             }

@@ -1,0 +1,100 @@
+﻿<Page x:Class="WORKTOGETHER.WPF.Rapports.RapportPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Rapports">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- En-tête -->
+        <Border Grid.Row="0" Background="#2C3E7A" Padding="15,10">
+            <TextBlock Text="RAPPORTS" Foreground="White"
+                       FontSize="14" FontWeight="Bold"/>
+        </Border>
+
+        <!-- Sélecteur de mois -->
+        <Grid Grid.Row="1" Margin="15,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" Text="Mois :"
+                       VerticalAlignment="Center" Margin="0,0,10,0"/>
+
+            <ComboBox Grid.Column="1" x:Name="CmbMois" Width="120" Padding="6,4">
+                <ComboBoxItem Content="Janvier"   Tag="1"/>
+                <ComboBoxItem Content="Février"   Tag="2"/>
+                <ComboBoxItem Content="Mars"      Tag="3"/>
+                <ComboBoxItem Content="Avril"     Tag="4"/>
+                <ComboBoxItem Content="Mai"       Tag="5"/>
+                <ComboBoxItem Content="Juin"      Tag="6"/>
+                <ComboBoxItem Content="Juillet"   Tag="7"/>
+                <ComboBoxItem Content="Août"      Tag="8"/>
+                <ComboBoxItem Content="Septembre" Tag="9"/>
+                <ComboBoxItem Content="Octobre"   Tag="10"/>
+                <ComboBoxItem Content="Novembre"  Tag="11"/>
+                <ComboBoxItem Content="Décembre"  Tag="12"/>
+            </ComboBox>
+
+            <ComboBox Grid.Column="2" x:Name="CmbAnnee"
+                      Width="100" Padding="6,4" Margin="10,0"/>
+
+            <Button Grid.Column="3" Content="📊 Générer"
+                    HorizontalAlignment="Left"
+                    Padding="12,6" Background="#2C3E7A"
+                    Foreground="White" BorderThickness="0"
+                    Click="BtnGenerer_Click"/>
+        </Grid>
+
+        <!-- Résultats -->
+        <Grid Grid.Row="2" Margin="15,0,15,15">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Tableau rapport -->
+            <DataGrid Grid.Row="0" x:Name="DgRapport"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True"
+                      CanUserAddRows="False"
+                      AlternatingRowBackground="#F5F5F5">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="OFFRE" Binding="{Binding NomOffre}" Width="*"/>
+                    <DataGridTextColumn Header="NB RÉSERVATIONS" Binding="{Binding NbReservations}" Width="150"/>
+                    <DataGridTextColumn Header="CA HT (€)" Binding="{Binding ChiffreAffaires, StringFormat=N2}" Width="150"/>
+                    <DataGridTextColumn Header="TVA (€)" Binding="{Binding Tva, StringFormat=N2}" Width="120"/>
+                    <DataGridTextColumn Header="CA TTC (€)" Binding="{Binding ChiffreAffairesTTC, StringFormat=N2}" Width="150"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <!-- Totaux -->
+            <Border Grid.Row="1" Background="#2C3E7A"
+                    Padding="15,10" Margin="0,5,0,0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="TOTAL"
+                               Foreground="White" FontWeight="Bold"/>
+                    <TextBlock Grid.Column="1" x:Name="TxtTotalReservations"
+                               Foreground="White" Margin="0,0,30,0"/>
+                    <TextBlock Grid.Column="2" x:Name="TxtTotalCA"
+                               Foreground="White" Margin="0,0,30,0"/>
+                    <TextBlock Grid.Column="3" x:Name="TxtTotalTTC"
+                               Foreground="White" FontWeight="Bold"/>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</Page>
