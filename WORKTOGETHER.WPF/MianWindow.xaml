@@ -36,23 +36,23 @@
                        HorizontalAlignment="Center"/>
 
             <Separator Background="#333"/>
-            <Button Content="🏠  Dashboard" Style="{StaticResource MenuButton}" Click="BtnDashboard_Click"/>
-            <Button Content="📊  Rapports" Style="{StaticResource MenuButton}" Click="BtnRapports_Click"/>
-            <Button Content="🏭  Occupation" Style="{StaticResource MenuButton}" Click="BtnOccupation_Click"/>
+            <Button Content="  Dashboard" Style="{StaticResource MenuButton}" Click="BtnDashboard_Click"/>
+            <Button Content="  Rapports" Style="{StaticResource MenuButton}" Click="BtnRapports_Click"/>
+            <Button Content="  Occupation" Style="{StaticResource MenuButton}" Click="BtnOccupation_Click"/>
         
-            <Button x:Name="BtnUsers" Content="👥  Utilisateurs" Style="{StaticResource MenuButton}" Click="BtnUsers_Click"/>
-            <Button x:Name="BtnUnites" Content="🖥️  Unités" Style="{StaticResource MenuButton}" Click="BtnUnites_Click"/>
-            <Button x:Name="BtnBaies" Content="📦  Baies" Style="{StaticResource MenuButton}" Click="BtnBaies_Click"/>
-            <Button Content="🛒  Commandes" Style="{StaticResource MenuButton}" Click="BtnCommandes_Click"/>
-            <Button Content="🎫  Tickets" Style="{StaticResource MenuButton}" Click="BtnTickets_Click"/>
-            <Button x:Name="BtnInterventions" Content="🔧  Interventions" Style="{StaticResource MenuButton}" Click="BtnInterventions_Click"/>
-            <Button x:Name="BtnOffres" Content="🔧  Offres" Style="{StaticResource MenuButton}" Click="BtnOffres_Click"/>
-            <Button Content="📋  Réservations" Style="{StaticResource MenuButton}"
+            <Button x:Name="BtnUsers" Content="  Utilisateurs" Style="{StaticResource MenuButton}" Click="BtnUsers_Click"/>
+            <Button x:Name="BtnUnites" Content="  Unités" Style="{StaticResource MenuButton}" Click="BtnUnites_Click"/>
+            <Button x:Name="BtnBaies" Content="  Baies" Style="{StaticResource MenuButton}" Click="BtnBaies_Click"/>
+            <Button Content="  Commandes" Style="{StaticResource MenuButton}" Click="BtnCommandes_Click"/>
+            <Button Content=" Tickets" Style="{StaticResource MenuButton}" Click="BtnTickets_Click"/>
+            <Button x:Name="BtnInterventions" Content="  Interventions" Style="{StaticResource MenuButton}" Click="BtnInterventions_Click"/>
+            <Button x:Name="BtnOffres" Content=" Offres" Style="{StaticResource MenuButton}" Click="BtnOffres_Click"/>
+            <Button Content="  Réservations" Style="{StaticResource MenuButton}"
         Click="BtnReservations_Click"/>
 
             <Separator Background="#333" Margin="0,20,0,0"/>
 
-            <Button Content="🚪  Déconnexion" Style="{StaticResource MenuButton}" Click="BtnDeconnexion_Click"/>
+            <Button Content="  Déconnexion" Style="{StaticResource MenuButton}" Click="BtnDeconnexion_Click"/>
         </StackPanel>
 
         <Frame Grid.Column="1" x:Name="MainFrame" NavigationUIVisibility="Hidden"/>

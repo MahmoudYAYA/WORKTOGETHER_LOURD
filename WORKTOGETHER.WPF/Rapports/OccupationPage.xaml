@@ -33,7 +33,7 @@
             <Border Grid.Column="0" Background="#2C3E7A" CornerRadius="8"
                     Margin="0,0,8,0" Padding="15">
                 <StackPanel>
-                    <TextBlock Text="📦 Total baies" Foreground="White" FontSize="12"/>
+                    <TextBlock Text=" Total baies" Foreground="White" FontSize="12"/>
                     <TextBlock x:Name="TxtTotalBaies" Text="0" Foreground="White"
                                FontSize="28" FontWeight="Bold"/>
                 </StackPanel>
@@ -43,7 +43,7 @@
             <Border Grid.Column="1" Background="#1A5276" CornerRadius="8"
                     Margin="4,0" Padding="15">
                 <StackPanel>
-                    <TextBlock Text="🖥️ Total unités" Foreground="White" FontSize="12"/>
+                    <TextBlock Text=" Total unités" Foreground="White" FontSize="12"/>
                     <TextBlock x:Name="TxtTotalUnites" Text="0" Foreground="White"
                                FontSize="28" FontWeight="Bold"/>
                 </StackPanel>
@@ -53,7 +53,7 @@
             <Border Grid.Column="2" Background="#922B21" CornerRadius="8"
                     Margin="4,0" Padding="15">
                 <StackPanel>
-                    <TextBlock Text="🔴 Occupées" Foreground="White" FontSize="12"/>
+                    <TextBlock Text=" Occupées" Foreground="White" FontSize="12"/>
                     <TextBlock x:Name="TxtOccupees" Text="0" Foreground="White"
                                FontSize="28" FontWeight="Bold"/>
                 </StackPanel>
@@ -63,7 +63,7 @@
             <Border Grid.Column="3" Background="#1E8449" CornerRadius="8"
                     Margin="8,0,0,0" Padding="15">
                 <StackPanel>
-                    <TextBlock Text="📊 Taux occupation" Foreground="White" FontSize="12"/>
+                    <TextBlock Text="Taux occupation" Foreground="White" FontSize="12"/>
                     <TextBlock x:Name="TxtTaux" Text="0%" Foreground="White"
                                FontSize="28" FontWeight="Bold"/>
                 </StackPanel>
