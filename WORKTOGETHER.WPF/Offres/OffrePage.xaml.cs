@@ -125,6 +125,7 @@ namespace WORKTOGETHER.WPF.Offres
                 // ── MODE CRÉATION ──
                 var offre = new Offre
                 {
+                    
                     NomOffre = TxtNomOffre.Text,
                     Description = TxtDescription.Text,
                     NombreUnites = int.Parse(TxtNombreUnites.Text),
@@ -133,7 +134,7 @@ namespace WORKTOGETHER.WPF.Offres
                     ReductionAnnuelle = int.Parse(TxtReductionAnnuelle.Text)
                 };
                 _offreRepo.Create(offre);
-                MessageBox.Show("Offre créée !", "Succès",
+                MessageBox.Show("Offre créée ", "Succès",
                                 MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
@@ -161,7 +162,7 @@ namespace WORKTOGETHER.WPF.Offres
             ViderFormulaire();
         }
 
-        // ── Remplit le formulaire avec les données de l'offre ──
+        //Remplit le formulaire avec les données de l'offre
         private void RemplirFormulaire(Offre offre)
         {
             TxtNomOffre.Text = offre.NomOffre;
@@ -172,7 +173,7 @@ namespace WORKTOGETHER.WPF.Offres
             TxtReductionAnnuelle.Text = offre.ReductionAnnuelle.ToString();
         }
 
-        // ── Vide le formulaire ──
+        // vide le formulair
         private void ViderFormulaire()
         {
             TxtNomOffre.Text = "";
@@ -192,6 +193,10 @@ namespace WORKTOGETHER.WPF.Offres
 
             if (string.IsNullOrEmpty(TxtNomOffre.Text))
                 erreurs.Add("Le nom de l'offre est obligatoire");
+            // Le nom doit etre unique
+            else if (_toutesLesOffres.Any(o => o.NomOffre.Equals(TxtNomOffre.Text, StringComparison.OrdinalIgnoreCase)
+                                              && o.Id != _offreSelectionnee?.Id))
+                erreurs.Add("Une offre avec ce nom existe déjà");
 
             if (!int.TryParse(TxtNombreUnites.Text, out _))
                 erreurs.Add("Le nombre d'unités doit être un entier");

@@ -73,7 +73,7 @@ namespace WORKTOGETHER.WPF.Baies
 
                 // ← Vérifie les unités occupées
                 if (baie.NbUnitesOccupees > 0)
-                    return (false, $"❌ {baie.NbUnitesOccupees} unité(s) sont occupées !");
+                    return (false, $" {baie.NbUnitesOccupees} unités sont occupées !");
 
                 // ← Supprime (BaieRepository.Delete supprime les unités aussi)
                 _baieRepo.Delete(id);
