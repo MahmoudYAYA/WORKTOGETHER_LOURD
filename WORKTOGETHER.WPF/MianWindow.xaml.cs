@@ -6,7 +6,7 @@ using WORKTOGETHER.WPF.Dashboard;
 using WORKTOGETHER.WPF.Interventions;
 using WORKTOGETHER.WPF.Offres;
 using WORKTOGETHER.WPF.Reservations;
-using WORKTOGETHER.WPF.Tickets;
+using WORKTOGETHER.WPF.TicketSupports;
 using WORKTOGETHER.WPF.Unites; 
 using WORKTOGETHER.WPF.Users;
 using WORKTOGETHER.WPF.Rapports;

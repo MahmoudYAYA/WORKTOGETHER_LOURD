@@ -14,7 +14,7 @@ namespace WORKTOGETHER.DATA.Repositories
         public List<User> FindClientAdtifs()
         {
             return table
-                .Where(u => u.Actif == 1 && u.Roles.Contains("ROLE_CLIENTE"))
+                .Where(u => u.Actif == 1 && u.Roles.Contains("ROLE_CLIENT"))
                 .ToList();
         }
 
@@ -22,6 +22,7 @@ namespace WORKTOGETHER.DATA.Repositories
         public List<User> FindByRole(string role)
         {
             return table
+                .ToList()
                 .Where(u => u.Actif == 1 && u.Roles.Contains(role))
                 .ToList();
         }
