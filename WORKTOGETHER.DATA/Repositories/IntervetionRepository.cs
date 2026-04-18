@@ -37,13 +37,23 @@ namespace WORKTOGETHER.DATA.Repositories
         public void Terminer(int id)
         {
             using var ctx = new WorktogetherContext();
-            var intervention = ctx.Interventions.Find(id);
-            if (intervention != null)
-            {
-                intervention.Statut = "terminee";
-                intervention.DateFin = DateTime.Now;
-                ctx.SaveChanges();
-            }
+
+            var intervention = ctx.Interventions
+                .Include(i => i.Unite) // ← charge l'unité en même temps
+                .FirstOrDefault(i => i.Id == id);
+
+            if (intervention == null)
+                throw new Exception("Intervention introuvable !");
+
+            // ← Termine l'intervention
+            intervention.Statut = "terminee";
+            intervention.DateFin = DateTime.Now;
+
+            // ← Change l'état de l'unité dans le MÊME contexte
+            if (intervention.Unite != null)
+                intervention.Unite.Etat = "OK";
+
+            ctx.SaveChanges(); // ← Sauvegarde tout en une seule fois
         }
     }
 }
