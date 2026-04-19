@@ -32,5 +32,15 @@ namespace WORKTOGETHER.DATA.Repositories
 					.ThenInclude(u => u.Client)
 				.ToList();
         }
+
+
+		/// une mehtode modifier etate 
+		public void ModifierEtat(int modifier)
+		{
+
+			if (modifier == 0)
+				return;
+		}
+		
     }
 }
