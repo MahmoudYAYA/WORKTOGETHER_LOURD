@@ -17,7 +17,7 @@ public partial class Intervention
 
     public DateTime? DateFin { get; set; }
 
-    public string TypeLabel => Type == 1 ? "Maintenance" : Type == 2 ? "Remplacement" : "Autre";
+    public string TypeLabel => Type == 1 ? "Incident" : Type == 2 ? "Maintenance" : "Autre";
     public string StatutLabel => Statut == "en_cours" ? "En cours" : "Terminée";
     public string Statut { get; set; } = null!;
 

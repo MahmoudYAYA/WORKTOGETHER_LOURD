@@ -27,8 +27,7 @@ namespace WORKTOGETHER.DATA.Repositories
         // une methode pour charger tous les reservation
         public List<Reservation> FindAllWithDetails()
         {
-            using var ctx = new WorktogetherContext();
-            return ctx.Reservations
+            return table
                 .Include(r => r.Client)
                 .Include(r => r.Offre)
                 .Include(r => r.Unites)

@@ -22,7 +22,6 @@ namespace WORKTOGETHER.DATA.Repositories
         public List<User> FindByRole(string role)
         {
             return table
-                .ToList()
                 .Where(u => u.Actif == 1 && u.Roles.Contains(role))
                 .ToList();
         }
