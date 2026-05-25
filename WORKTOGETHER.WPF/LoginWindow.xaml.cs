@@ -22,15 +22,17 @@ namespace WORKTOGETHER.WPF
                 var userRepo = new UserRepository();
                 var user = userRepo.FindByEmail(TxtEmail.Text);
 
-                if (user == null || !user.Roles.Contains("ROLE_ADMIN")
-                                 && !user.Roles.Contains("ROLE_COMPTABLE"))
+                if (user == null
+                    || !BCrypt.Net.BCrypt.Verify(TxtPassword.Password, user.Password)
+                    || (!user.Roles.Contains("ROLE_ADMIN") && !user.Roles.Contains("ROLE_COMPTABLE")))
                 {
                     TxtErreur.Text = "Email ou mot de passe incorrect !";
                     TxtErreur.Visibility = Visibility.Visible;
                     return;
                 }
 
-                new MainWindow(user).Show();
+                Session.Open(user);
+                new MainWindow().Show();
                 this.Close();
             }
             catch (MySqlException)

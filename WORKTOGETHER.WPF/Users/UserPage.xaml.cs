@@ -2,21 +2,32 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using WORKTOGETHER.DATA.Entities;
-
 namespace WORKTOGETHER.WPF.Users
+
 {
     public partial class UserPage : Page
     {
-        // ← Un seul controller !
         private readonly UserController _controller = new UserController();
         private List<User> _tousLesUsers;
         private User _userSelectionne = null;
+        private readonly User _currentUser = Session.CurrentUser;
 
         public UserPage()
         {
             InitializeComponent();
             ChargerUsers();
+            AdapterAffichage();
+        }
+
+        private void AdapterAffichage()
+        {
+            if (!_currentUser.Roles.Contains("ROLE_COMPTABLE")) return;
+
+            PanelBoutons.Visibility = Visibility.Collapsed;
+            PanelFormulaire.Visibility = Visibility.Collapsed;
+            GridContent.ColumnDefinitions[1].Width = new GridLength(0);
         }
 
         // ── Charge les données ──

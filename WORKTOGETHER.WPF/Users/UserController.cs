@@ -31,7 +31,7 @@ namespace WORKTOGETHER.WPF.Users
                     Nom = nom,
                     Email = email,
                     Password = BCrypt.Net.BCrypt.HashPassword(password),
-                    Roles = role,
+                    Roles = $"[\"{role}\"]",
                     Actif = 1,
                     IsVerified = 0,
                     DateCreation = DateTime.Now
@@ -46,7 +46,7 @@ namespace WORKTOGETHER.WPF.Users
         }
 
         // Modifie un utilisateur
-        public (bool succes, string message) Modifier(User user, string prenom, string nom, string email, string password, string role)
+        public (bool succes, string message) Modifier(User user, string prenom, string nom, string email, string role, string password)
         {
             try
             {

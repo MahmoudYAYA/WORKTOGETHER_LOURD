@@ -109,8 +109,8 @@
                             <TextBlock Text="Type *" VerticalAlignment="Center"/>
                             <!-- Liste déroulante pour le type -->
                             <ComboBox Grid.Column="1" x:Name="CmbType" Padding="6,4">
-                                <ComboBoxItem Content="Maintenance"  Tag="1"/>
-                                <ComboBoxItem Content="Remplacement" Tag="2"/>
+                                <ComboBoxItem Content="Incident"     Tag="1"/>
+                                <ComboBoxItem Content="Maintenance"  Tag="2"/>
                                 <ComboBoxItem Content="Autre"        Tag="3"/>
                             </ComboBox>
                         </Grid>

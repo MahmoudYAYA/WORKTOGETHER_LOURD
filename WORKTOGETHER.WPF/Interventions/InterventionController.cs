@@ -29,14 +29,21 @@ namespace WORKTOGETHER.WPF.Interventions
             Intervention intervention, string titre, int type,
             string description, DateTime dateDebut, int uniteId)
         {
-            intervention.Titre = titre;
-            intervention.Type = type;
-            intervention.Description = description;
-            intervention.DateDebut = dateDebut;
-            intervention.UniteId = uniteId;
+            try
+            {
+                intervention.Titre = titre;
+                intervention.Type = type;
+                intervention.Description = description;
+                intervention.DateDebut = dateDebut;
+                intervention.UniteId = uniteId;
 
-            _repo.Update(intervention);
-            return (true, "Intervention modifiée !");
+                _repo.Update(intervention);
+                return (true, "Intervention modifiée !");
+            }
+            catch (Exception ex)
+            {
+                return (false, $"Erreur : {ex.Message}");
+            }
         }
 
         //Crée une intervention + change statut unité 
@@ -67,8 +74,8 @@ namespace WORKTOGETHER.WPF.Interventions
                 };
                 _repo.Create(intervention);
 
-                // Change le statut de l'unité
-                unite.Etat = "incident";  // ou "maintenance" selon le type
+                // Change le statut de l'unité selon le type (1=incident, 2=maintenance)
+                unite.Etat = type == 1 ? "incident" : "maintenance";
                 _uniteRepo.Update(unite);
 
                 return (true, "Intervention créée !");

@@ -45,7 +45,7 @@
             <Button x:Name="BtnUnites" Content="Unités" Style="{StaticResource MenuButton}" Click="BtnUnites_Click"/>
             <Button x:Name="BtnBaies" Content="Baies" Style="{StaticResource MenuButton}" Click="BtnBaies_Click"/>
             <Button Content="Commandes" Style="{StaticResource MenuButton}" Click="BtnCommandes_Click"/>
-            <Button Content="ickets" Style="{StaticResource MenuButton}" Click="BtnTickets_Click"/>
+            <Button x:Name="BtnTickets" Content="Tickets" Style="{StaticResource MenuButton}" Click="BtnTickets_Click"/>
             <Button x:Name="BtnInterventions" Content="Interventions" Style="{StaticResource MenuButton}" Click="BtnInterventions_Click"/>
             <Button x:Name="BtnOffres" Content="Offres" Style="{StaticResource MenuButton}" Click="BtnOffres_Click"/>
             <Button Content="Réservations" Style="{StaticResource MenuButton}"
