@@ -30,7 +30,7 @@ namespace WORKTOGETHER.WPF.Users
             GridContent.ColumnDefinitions[1].Width = new GridLength(0);
         }
 
-        // ── Charge les données ──
+        // Charge les données
         private void ChargerUsers()
         {
             try
@@ -68,7 +68,7 @@ namespace WORKTOGETHER.WPF.Users
             }
         }
 
-        // ── Bouton CRÉER ──
+        // Bouton CRÉER
         private void BtnCreer_Click(object sender, RoutedEventArgs e)
         {
             _userSelectionne = null;
@@ -78,7 +78,7 @@ namespace WORKTOGETHER.WPF.Users
             TxtPrenom.Focus();
         }
 
-        // ── Bouton MODIFIER ──
+        // Bouton MODIFIER
         private void BtnModifier_Click(object sender, RoutedEventArgs e)
         {
             if (_userSelectionne == null)

@@ -52,7 +52,7 @@ namespace WORKTOGETHER.WPF.Dashboard
         {
             if (!_currentUser.Roles.Contains("ROLE_COMPTABLE")) return;
 
-            // Carte 2 : Baies → Réservations
+            // Baies Réservations
             TxtCard2Label.Text = "Réservations";
             TxtNbBaies.Text = _reservationRepo.FindAll().Count.ToString();
 
@@ -66,7 +66,7 @@ namespace WORKTOGETHER.WPF.Dashboard
             SectionCommandes.Visibility = Visibility.Collapsed;
             GridTables.ColumnDefinitions[0].Width = new GridLength(0);
 
-            // Remplace tickets par réservations
+            // Remplace tickets par réservation
             TxtTitreSection2.Text = "Dernières réservations";
             DgTicketsOuverts.Visibility = Visibility.Collapsed;
             DgDernieresReservations.Visibility = Visibility.Visible;

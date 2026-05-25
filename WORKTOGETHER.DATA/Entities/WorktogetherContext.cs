@@ -45,7 +45,7 @@ public partial class WorktogetherContext : DbContext
         var connectionStringSetting = ConfigurationManager
             .ConnectionStrings["WorktogetherDB"];
 
-        // ← Si App.config introuvable → utilise la connexion par défaut
+        // Si App.config introuvable → utilise la connexion par défaut
         var connectionString = connectionStringSetting?.ConnectionString
             ?? "server=localhost;database=worktogether;uid=root;port=3306";
 
