@@ -15,9 +15,9 @@ public partial class Commande
 
     public decimal MontantTva { get; set; }
 
-    public DateOnly DateDebutService { get; set; }
+    public DateTime DateDebutService { get; set; }
 
-    public DateOnly DateFinService { get; set; }
+    public DateTime DateFinService { get; set; }
 
     public string? StripePaymentId { get; set; }
 

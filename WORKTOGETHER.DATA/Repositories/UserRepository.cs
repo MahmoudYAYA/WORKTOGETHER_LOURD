@@ -5,7 +5,7 @@ namespace WORKTOGETHER.DATA.Repositories
 {
     public class UserRepository : Repository<User>
     {
-        public User FindByEmail(string email )
+        public User FindByEmail(string email)
         {
             return table.FirstOrDefault(u => u.Email == email);
         }
@@ -22,7 +22,6 @@ namespace WORKTOGETHER.DATA.Repositories
         public List<User> FindByRole(string role)
         {
             return table
-                .ToList()
                 .Where(u => u.Actif == 1 && u.Roles.Contains(role))
                 .ToList();
         }

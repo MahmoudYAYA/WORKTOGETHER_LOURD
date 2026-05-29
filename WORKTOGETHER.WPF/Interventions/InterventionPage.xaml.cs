@@ -165,7 +165,7 @@ namespace WORKTOGETHER.WPF.Interventions
         {
             TxtTitre.Text = intervention.Titre;
             TxtDescription.Text = intervention.Description;
-            DpDateDebut.SelectedDate = intervention.DateDebut;
+            DpDateDebut.SelectedDate = intervention.DateDebut ;
             TxtTitreFormulaire.Text = "DÉTAIL INTERVENTION";
 
             foreach (ComboBoxItem item in CmbType.Items)
@@ -182,7 +182,7 @@ namespace WORKTOGETHER.WPF.Interventions
         {
             TxtTitre.Text = "";
             TxtDescription.Text = "";
-            DpDateDebut.SelectedDate = null;
+            DpDateDebut.SelectedDate = DateTime.Today;
             CmbType.SelectedIndex = -1;
             CmbUnite.SelectedIndex = -1;
             TxtErreur.Visibility = Visibility.Collapsed;

@@ -7,9 +7,9 @@ public partial class Reservation
 {
     public int Id { get; set; }
 
-    public DateOnly DateDebut { get; set; }
+    public  DateTime DateDebut { get; set; }
 
-    public DateOnly DateFin { get; set; }
+    public DateTime DateFin { get; set; }
 
     public double PrixTotal { get; set; }
 

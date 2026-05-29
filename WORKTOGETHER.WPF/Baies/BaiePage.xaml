@@ -22,7 +22,6 @@
                 <ColumnDefinition Width="350"/>
             </Grid.ColumnDefinitions>
 
-            <!-- ══════════════ LISTE ══════════════ -->
             <Grid Grid.Column="0" Margin="15">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>

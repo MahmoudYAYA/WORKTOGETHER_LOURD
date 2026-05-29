@@ -7,39 +7,46 @@ namespace WORKTOGETHER.WPF.Interventions
 {
     public class InterventionController
     {
-        // ── Repositories ──
+
         private readonly InterventionRepository _repo = new InterventionRepository();
         private readonly UniteRepository _uniteRepo = new UniteRepository();
 
-        // ── Récupère toutes les interventions avec détails ──
+        // Récupère toutes les interventions avec détails 
         public List<Intervention> GetAll()
         {
             return _repo.FindAllWithDetails();
         }
 
-        // ── Récupère toutes les unités ──
+        // Récupère toutes les unités
         public List<Unite> GetUnites()
         {
             return _uniteRepo.FindAll();
         }
 
        
-        // ── Modifie une intervention ──
+        // Modifie une intervention 
         public (bool succes, string message) Modifier(
             Intervention intervention, string titre, int type,
             string description, DateTime dateDebut, int uniteId)
         {
-            intervention.Titre = titre;
-            intervention.Type = type;
-            intervention.Description = description;
-            intervention.DateDebut = dateDebut;
-            intervention.UniteId = uniteId;
+            try
+            {
+                intervention.Titre = titre;
+                intervention.Type = type;
+                intervention.Description = description;
+                intervention.DateDebut = dateDebut;
+                intervention.UniteId = uniteId;
 
-            _repo.Update(intervention);
-            return (true, "Intervention modifiée !");
+                _repo.Update(intervention);
+                return (true, "Intervention modifiée !");
+            }
+            catch (Exception ex)
+            {
+                return (false, $"Erreur : {ex.Message}");
+            }
         }
 
-        // ── Crée une intervention + change statut unité ──
+        //Crée une intervention + change statut unité 
         public (bool succes, string message) Creer(
             string titre, int type, string description,
             DateTime dateDebut, int uniteId)
@@ -48,14 +55,14 @@ namespace WORKTOGETHER.WPF.Interventions
             {
                 var unite = _uniteRepo.FindById(uniteId);
 
-                // ← Vérifie que l'unité n'a pas déjà une intervention en cours
+                //  Vérifie que l'unité n'a pas déjà une intervention en cours
                 var interventionEnCours = _repo.FindByUnite(uniteId)
                     .Find(i => i.Statut == "en_cours");
 
                 if (interventionEnCours != null)
                     return (false, "Cette unité a déjà une intervention en cours !");
 
-                // ← Crée l'intervention
+                // Crée l'intervention
                 var intervention = new Intervention
                 {
                     Titre = titre,
@@ -67,8 +74,8 @@ namespace WORKTOGETHER.WPF.Interventions
                 };
                 _repo.Create(intervention);
 
-                // ← Change le statut de l'unité
-                unite.Etat = "incident";  // ou "maintenance" selon le type
+                // Change le statut de l'unité selon le type (1=incident, 2=maintenance)
+                unite.Etat = type == 1 ? "incident" : "maintenance";
                 _uniteRepo.Update(unite);
 
                 return (true, "Intervention créée !");

@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using WORKTOGETHER.DATA.Entities;
 using WORKTOGETHER.WPF.Baies;
 using WORKTOGETHER.WPF.Commandes;
 using WORKTOGETHER.WPF.Dashboard;
@@ -15,22 +14,19 @@ namespace WORKTOGETHER.WPF
 {
     public partial class MainWindow : Window
     {
-        private User _currentUser;
-
-        public MainWindow(User user)
+        public MainWindow()
         {
             InitializeComponent();
-            _currentUser = user;
+            var user = Session.CurrentUser;
             TxtUsername.Text = user.Prenom + " " + user.Nom;
 
-            // ← Cache les menus admin si comptable
             if (user.Roles.Contains("ROLE_COMPTABLE"))
             {
-                BtnUsers.Visibility = Visibility.Collapsed;
                 BtnBaies.Visibility = Visibility.Collapsed;
                 BtnInterventions.Visibility = Visibility.Collapsed;
                 BtnOffres.Visibility = Visibility.Collapsed;
                 BtnUnites.Visibility = Visibility.Collapsed;
+                BtnTickets.Visibility = Visibility.Collapsed;
             }
 
             MainFrame.Navigate(new DashboardPage());
@@ -91,9 +87,8 @@ namespace WORKTOGETHER.WPF
         }
         private void BtnDeconnexion_Click(object sender, RoutedEventArgs e)
         {
-            // LoginWindow est dans le namespace principal
-            var login = new LoginWindow();
-            login.Show();
+            Session.Close();
+            new LoginWindow().Show();
             this.Close();
         }
 

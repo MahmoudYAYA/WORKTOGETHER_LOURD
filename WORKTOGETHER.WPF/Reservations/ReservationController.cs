@@ -1,12 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using WORKTOGETHER.DATA.Entities;
+using WORKTOGETHER.DATA.Repositories;
 
 namespace WORKTOGETHER.WPF.Reservations
 {
-    internal class ReservationController
+    public class ReservationController
     {
+        private readonly ReservationRepository _repo = new ReservationRepository();
+
+        // ── Récupère toutes les réservations ──
+        public List<Reservation> GetAll()
+        {
+            return _repo.FindAllWithDetails();
+        }
     }
 }

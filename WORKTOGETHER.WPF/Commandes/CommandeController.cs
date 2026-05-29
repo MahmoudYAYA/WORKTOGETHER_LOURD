@@ -7,16 +7,16 @@ namespace WORKTOGETHER.WPF.Commandes
 {
     public class CommandeController
     {
-        // ← Seulement les repos nécessaires aux commandes
+        // Seulement les repos nécessaires aux commandes
         private readonly CommandeRepository _repo = new CommandeRepository();
 
-        // ── Récupère toutes les commandes avec détails ──
+        // Récupère toutes les commandes avec détails 
         public List<Commande> GetAll()
         {
             return _repo.FindAllWithDetails();
         }
 
-        // ── Annule une commande ──
+        // Annule une commande 
         public (bool succes, string message) Annuler(int id)
         {
             try

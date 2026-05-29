@@ -2,33 +2,51 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using WORKTOGETHER.DATA.Entities;
-using WORKTOGETHER.DATA.Repositories;
-
 namespace WORKTOGETHER.WPF.Users
+
 {
     public partial class UserPage : Page
     {
-        private readonly UserRepository _repo = new UserRepository();
+        private readonly UserController _controller = new UserController();
         private List<User> _tousLesUsers;
-        // Utilisateur sélectionné dans la liste (null = mode création)
         private User _userSelectionne = null;
+        private readonly User _currentUser = Session.CurrentUser;
 
         public UserPage()
         {
             InitializeComponent();
             ChargerUsers();
+            AdapterAffichage();
         }
 
-        // ── Charge tous les utilisateurs depuis la BDD ──
+        private void AdapterAffichage()
+        {
+            if (!_currentUser.Roles.Contains("ROLE_COMPTABLE")) return;
+
+            PanelBoutons.Visibility = Visibility.Collapsed;
+            PanelFormulaire.Visibility = Visibility.Collapsed;
+            GridContent.ColumnDefinitions[1].Width = new GridLength(0);
+        }
+
+        // Charge les données
         private void ChargerUsers()
         {
-            _tousLesUsers = _repo.FindAll();
-            DgUsers.ItemsSource = _tousLesUsers;
-            ViderFormulaire();
+            try
+            {
+                _tousLesUsers = _controller.GetAll();
+                DgUsers.ItemsSource = _tousLesUsers;
+                ViderFormulaire();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erreur de connexion : {ex.Message}", "Erreur",
+                                MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
-        // ── Filtre la liste selon la recherche ──
+        // ── Filtre la recherche ──
         private void TxtRecherche_TextChanged(object sender, TextChangedEventArgs e)
         {
             var recherche = TxtRecherche.Text.ToLower();
@@ -39,7 +57,7 @@ namespace WORKTOGETHER.WPF.Users
                 .ToList();
         }
 
-        // ── Quand on clique sur une ligne → remplit le formulaire ──
+        // Sélection dans le tableau 
         private void DgUsers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _userSelectionne = DgUsers.SelectedItem as User;
@@ -50,10 +68,9 @@ namespace WORKTOGETHER.WPF.Users
             }
         }
 
-        // ── Bouton CRÉER → vide le formulaire et désélectionne ──
+        // Bouton CRÉER
         private void BtnCreer_Click(object sender, RoutedEventArgs e)
         {
-            // null = mode création
             _userSelectionne = null;
             DgUsers.SelectedItem = null;
             ViderFormulaire();
@@ -61,7 +78,7 @@ namespace WORKTOGETHER.WPF.Users
             TxtPrenom.Focus();
         }
 
-        // ── Bouton MODIFIER → vérifie qu'un user est sélectionné ──
+        // Bouton MODIFIER
         private void BtnModifier_Click(object sender, RoutedEventArgs e)
         {
             if (_userSelectionne == null)
@@ -74,7 +91,7 @@ namespace WORKTOGETHER.WPF.Users
             RemplirFormulaire(_userSelectionne);
         }
 
-        // ── Bouton SUPPRIMER → confirmation puis suppression ──
+        
         private void BtnSupprimer_Click(object sender, RoutedEventArgs e)
         {
             if (_userSelectionne == null)
@@ -88,59 +105,64 @@ namespace WORKTOGETHER.WPF.Users
                 $"Supprimer {_userSelectionne.Prenom} {_userSelectionne.Nom} ?",
                 "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-            if (result == MessageBoxResult.Yes)
-            {
-                _repo.Delete(_userSelectionne.Id);
-                ChargerUsers();
-            }
+            if (result != MessageBoxResult.Yes) return;
+
+            
+            var (succes, message) = _controller.Supprimer(_userSelectionne.Id);
+            MessageBox.Show(message, succes ? "Succès" : "Erreur",
+                            MessageBoxButton.OK,
+                            succes ? MessageBoxImage.Information : MessageBoxImage.Warning);
+
+            if (succes) ChargerUsers();
         }
 
-        // ── Bouton ENREGISTRER → crée ou modifie selon _userSelectionne ──
+        //  Bouton  
         private void BtnEnregistrer_Click(object sender, RoutedEventArgs e)
         {
-            if (!Valider()) return;
-
             var selectedRole = CmbRole.SelectedItem as ComboBoxItem;
+            bool isCreation = _userSelectionne == null;
 
-            if (_userSelectionne == null)
+            // Validation dans le Controller
+            var erreurs = _controller.Valider(
+                TxtPrenom.Text, TxtNom.Text, TxtEmail.Text,
+                selectedRole, TxtPassword.Password, isCreation);
+
+            if (erreurs.Count > 0)
             {
-                // ── MODE CRÉATION ──
-                var user = new User
-                {
-                    Prenom = TxtPrenom.Text,
-                    Nom = TxtNom.Text,
-                    Email = TxtEmail.Text,
-                    Password = BCrypt.Net.BCrypt.HashPassword(TxtPassword.Password),
-                    Roles = $"[\"{selectedRole.Tag}\"]",
-                    Actif = 1,
-                    IsVerified = 0,
-                    DateCreation = System.DateTime.Now
-                };
-                _repo.Create(user);
-                MessageBox.Show("Utilisateur créé !", "Succès",
-                                MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            else
-            {
-                // ── MODE MODIFICATION ──
-                _userSelectionne.Prenom = TxtPrenom.Text;
-                _userSelectionne.Nom = TxtNom.Text;
-                _userSelectionne.Email = TxtEmail.Text;
-                _userSelectionne.Roles = $"[\"{selectedRole.Tag}\"]";
-
-                // Change le mot de passe seulement si renseigné
-                if (!string.IsNullOrEmpty(TxtPassword.Password))
-                    _userSelectionne.Password = BCrypt.Net.BCrypt.HashPassword(TxtPassword.Password);
-
-                _repo.Update(_userSelectionne);
-                MessageBox.Show("Utilisateur modifié !", "Succès",
-                                MessageBoxButton.OK, MessageBoxImage.Information);
+                TxtErreur.Text = string.Join("\n", erreurs);
+                TxtErreur.Visibility = Visibility.Visible;
+                return;
             }
 
-            ChargerUsers();
+            string role = selectedRole.Tag.ToString();
+
+            try
+            {
+                (bool succes, string message) resultat;
+
+                if (isCreation)
+                    resultat = _controller.Creer(
+                        TxtPrenom.Text, TxtNom.Text,
+                        TxtEmail.Text, TxtPassword.Password, role);
+                else
+                    resultat = _controller.Modifier(
+                        _userSelectionne, TxtPrenom.Text, TxtNom.Text,
+                        TxtEmail.Text, role, TxtPassword.Password);
+
+                MessageBox.Show(resultat.message,
+                                resultat.succes ? "Succès" : "Erreur",
+                                MessageBoxButton.OK,
+                                resultat.succes ? MessageBoxImage.Information : MessageBoxImage.Warning);
+
+                if (resultat.succes) ChargerUsers();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erreur : {ex.Message}");
+            }
         }
 
-        // ── Bouton ANNULER → vide le formulaire ──
+        //Bouton ANNULER 
         private void BtnAnnuler_Click(object sender, RoutedEventArgs e)
         {
             _userSelectionne = null;
@@ -148,26 +170,20 @@ namespace WORKTOGETHER.WPF.Users
             ViderFormulaire();
         }
 
-        // ── Remplit le formulaire avec les données du user ──
+        //  Remplit le formulaire 
         private void RemplirFormulaire(User user)
         {
             TxtPrenom.Text = user.Prenom;
             TxtNom.Text = user.Nom;
             TxtEmail.Text = user.Email;
-            TxtPassword.Clear(); // Ne jamais afficher le mot de passe hashé
+            TxtPassword.Clear();
 
-            // Sélectionne le bon rôle dans le ComboBox
             foreach (ComboBoxItem item in CmbRole.Items)
-            {
                 if (user.Roles.Contains(item.Tag.ToString()))
-                {
-                    CmbRole.SelectedItem = item;
-                    break;
-                }
-            }
+                { CmbRole.SelectedItem = item; break; }
         }
 
-        // ── Vide tous les champs du formulaire ──
+        // Vide le formulaire
         private void ViderFormulaire()
         {
             TxtPrenom.Text = "";
@@ -177,32 +193,6 @@ namespace WORKTOGETHER.WPF.Users
             CmbRole.SelectedIndex = -1;
             TxtErreur.Visibility = Visibility.Collapsed;
             TxtTitreFormulaire.Text = "FORMULAIRE";
-        }
-
-        // ── Valide les champs obligatoires ──
-        private bool Valider()
-        {
-            var erreurs = new List<string>();
-
-            if (string.IsNullOrEmpty(TxtPrenom.Text)) erreurs.Add("Le prénom est obligatoire");
-            if (string.IsNullOrEmpty(TxtNom.Text)) erreurs.Add("Le nom est obligatoire");
-            if (string.IsNullOrEmpty(TxtEmail.Text)) erreurs.Add("L'email est obligatoire");
-
-            // Mot de passe obligatoire seulement en création
-            if (_userSelectionne == null && string.IsNullOrEmpty(TxtPassword.Password))
-                erreurs.Add("Le mot de passe est obligatoire");
-
-            if (CmbRole.SelectedItem == null) erreurs.Add("Veuillez choisir un rôle");
-
-            if (erreurs.Count > 0)
-            {
-                TxtErreur.Text = string.Join("\n", erreurs);
-                TxtErreur.Visibility = Visibility.Visible;
-                return false;
-            }
-
-            TxtErreur.Visibility = Visibility.Collapsed;
-            return true;
         }
     }
 }

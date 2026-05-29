@@ -1,36 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WORKTOGETHER.DATA.Repositories;
 using WORKTOGETHER.DATA.Entities;
-using Microsoft.Extensions.Primitives;
+using WORKTOGETHER.DATA.Repositories;
 
 namespace WORKTOGETHER.WPF.Unites
 {
     public class UniteController
     {
-        private readonly UniteRepository _uniteRepo = new UniteRepository();
+        private readonly UniteRepository _repo = new UniteRepository();
 
+        // ── Récupère toutes les unités avec détails ──
         public List<Unite> GetAll()
         {
-            return _uniteRepo.FindAllWithDetails();
+            return _repo.FindAllWithDetails();
         }
 
-        // mOdification d'un état d'une unité
-        public (bool succes, string message) Modifier (Unite unite, string nouvelleEtat)
+        // ── Modifie l'état d'une unité ──
+        public (bool succes, string message) ModifierEtat(Unite unite, string nouvelEtat)
         {
             try
             {
-                unite.Etat = nouvelleEtat;
-                _uniteRepo.Update(unite);
-                return (true, "état de unité modifié");
+                unite.Etat = nouvelEtat;
+                _repo.Update(unite);
+                return (true, "État modifié !");
             }
             catch (Exception ex)
             {
                 return (false, $"Erreur : {ex.Message}");
-            } 
+            }
         }
     }
 }

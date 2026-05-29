@@ -46,7 +46,7 @@
             <ComboBox Grid.Column="2" x:Name="CmbAnnee"
                       Width="100" Padding="6,4" Margin="10,0"/>
 
-            <Button Grid.Column="3" Content="📊 Générer"
+            <Button Grid.Column="3" Content="Générer"
                     HorizontalAlignment="Left"
                     Padding="12,6" Background="#2C3E7A"
                     Foreground="White" BorderThickness="0"
@@ -69,9 +69,9 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="OFFRE" Binding="{Binding NomOffre}" Width="*"/>
                     <DataGridTextColumn Header="NB RÉSERVATIONS" Binding="{Binding NbReservations}" Width="150"/>
-                    <DataGridTextColumn Header="CA HT (€)" Binding="{Binding ChiffreAffaires, StringFormat=N2}" Width="150"/>
-                    <DataGridTextColumn Header="TVA (€)" Binding="{Binding Tva, StringFormat=N2}" Width="120"/>
-                    <DataGridTextColumn Header="CA TTC (€)" Binding="{Binding ChiffreAffairesTTC, StringFormat=N2}" Width="150"/>
+                    <DataGridTextColumn Header="CA HT €" Binding="{Binding ChiffreAffaires, StringFormat=N2}" Width="150"/>
+                    <DataGridTextColumn Header="TVA €" Binding="{Binding Tva, StringFormat=N2}" Width="120"/>
+                    <DataGridTextColumn Header="CA TTC €" Binding="{Binding ChiffreAffairesTTC, StringFormat=N2}" Width="150"/>
                 </DataGrid.Columns>
             </DataGrid>
 

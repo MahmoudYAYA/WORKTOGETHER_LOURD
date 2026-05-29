@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+	<connectionStrings>
+		<add name="WorktogetherDB"
+             connectionString="Server=VOTRE_SERVEUR;Database=VOTRE_BDD;Uid=VOTRE_USER;Pwd=VOTRE_MDP;Port=3306;"
+             providerName="MySql.Data.MySqlClient"/>
+	</connectionStrings>
+</configuration>

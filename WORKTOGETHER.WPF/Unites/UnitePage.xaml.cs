@@ -31,12 +31,10 @@ namespace WORKTOGETHER.WPF.Unites
         {
             if (_uniteSelectionnee == null)
             {
-                MessageBox.Show("Veuillez sélectionner une unité ", "Erreur",
+                MessageBox.Show("Veuillez sélectionner une unité !", "Erreur",
                                 MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-
-          
 
             var selectedEtat = CmbEtat.SelectedItem as ComboBoxItem;
             if (selectedEtat == null)
@@ -46,14 +44,7 @@ namespace WORKTOGETHER.WPF.Unites
                 return;
             }
 
-            var ancienEtat = CmbEtat.SelectedItem as ComboBoxItem;
-            if (ancienEtat == selectedEtat)
-            {
-                TxtErreur.Text = "Veuillez changer l'état de unité d'avant ";
-                TxtErreur.Visibility = Visibility.Visible;
-                return;
-            }
-            var (succes, message) = _controller.Modifier(
+            var (succes, message) = _controller.ModifierEtat(
                 _uniteSelectionnee,
                 selectedEtat.Tag.ToString());
 

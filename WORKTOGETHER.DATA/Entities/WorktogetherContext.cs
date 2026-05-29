@@ -1,7 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Pomelo.EntityFrameworkCore.MySql.Scaffolding.Internal;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Configuration;
+using System.Linq;
+
 
 namespace WORKTOGETHER.DATA.Entities;
 
@@ -37,9 +41,16 @@ public partial class WorktogetherContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseMySql("server=localhost;database=worktogether;uid=root;port=3306", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.3.0-mysql"));
+    {
+        var connectionStringSetting = ConfigurationManager
+            .ConnectionStrings["WorktogetherDB"];
 
+        // Si App.config introuvable → utilise la connexion par défaut
+        var connectionString = connectionStringSetting?.ConnectionString
+            ?? "server=10.192.68.1;database=worktogether;uid=worktogether;Pwd=worktogether123;port=3306";
+
+        optionsBuilder.UseMySQL(connectionString);
+    }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder
@@ -80,11 +91,17 @@ public partial class WorktogetherContext : DbContext
             entity.Property(e => e.DateCommande)
                 .HasColumnType("datetime")
                 .HasColumnName("date_commande");
-            entity.Property(e => e.DateDebutService).HasColumnName("date_debut_service");
+            entity.Property(e => e.DateDebutService)
+    .HasColumnType("date")
+    .HasColumnName("date_debut_service");
+            entity.Property(e => e.DateFinService)
+                .HasColumnType("date")
+                .HasColumnName("date_fin_service");
             entity.Property(e => e.DateFinRetractation)
                 .HasColumnType("datetime")
                 .HasColumnName("date_fin_retractation");
-            entity.Property(e => e.DateFinService).HasColumnName("date_fin_service");
+                
+            
             entity.Property(e => e.MontantTotal)
                 .HasPrecision(10, 2)
                 .HasColumnName("montant_total");
@@ -152,10 +169,10 @@ public partial class WorktogetherContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.DateDebut)
-                .HasColumnType("datetime")
-                .HasColumnName("date_debut");
+    .HasColumnType("date")
+    .HasColumnName("date_debut");
             entity.Property(e => e.DateFin)
-                .HasColumnType("datetime")
+                .HasColumnType("date")
                 .HasColumnName("date_fin");
             entity.Property(e => e.Description)
                 .HasMaxLength(255)

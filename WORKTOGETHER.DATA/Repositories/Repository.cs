@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WORKTOGETHER.DATA.Entities;
+using MySql.Data.MySqlClient;
 
 namespace WORKTOGETHER.DATA.Repositories
 {
@@ -43,7 +44,19 @@ namespace WORKTOGETHER.DATA.Repositories
 
         public List<T> FindAll()
         {
-            return table.AsNoTracking().ToList();
+            try
+            {
+                return table.AsNoTracking().ToList();
+            }
+            catch (MySqlException ex)
+            {
+                // ← Erreur de connexion MySQL
+                throw new Exception("Impossible de se connecter à la base de données. Vérifiez que MySQL est démarré.");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erreur : {ex.Message}");
+            }
         }
     }
 }
