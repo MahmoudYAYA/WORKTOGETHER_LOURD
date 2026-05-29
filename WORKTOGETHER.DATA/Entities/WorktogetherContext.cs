@@ -47,7 +47,7 @@ public partial class WorktogetherContext : DbContext
 
         // Si App.config introuvable → utilise la connexion par défaut
         var connectionString = connectionStringSetting?.ConnectionString
-            ?? "server=localhost;database=worktogether;uid=root;port=3306";
+            ?? "server=10.192.68.1;database=worktogether;uid=worktogether;Pwd=worktogether123;port=3306";
 
         optionsBuilder.UseMySQL(connectionString);
     }
